@@ -1,5 +1,6 @@
 # Souseiseki-Editor
 
+だ、だめだよー！
 > A Unuseful Electron Ascii Art Editor
 
 ## Build Setup
