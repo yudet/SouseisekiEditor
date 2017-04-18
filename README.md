@@ -1,0 +1,2 @@
+# SouseisekiEditor
+だ、だめだよー！
