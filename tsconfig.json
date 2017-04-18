@@ -1,0 +1,30 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"target": "es6",
+		"noImplicitAny": true,
+		"sourceMap": true,
+		"noResolve": false,
+
+		"noImplicitThis": true,
+		"lib": [
+			"dom",
+			"es6",
+			"es2015.promise",
+			"es2015.iterable"
+		],
+		"experimentalDecorators": true,
+		"allowSyntheticDefaultImports": true,
+		"outDir":"ts"
+	},
+
+	"include": [
+		"./src/electron/*.ts",
+		"./src/test/*.ts"
+	],
+	"exclude":[
+		"dist",
+		"src/app",
+		"node_modules"
+	]
+}

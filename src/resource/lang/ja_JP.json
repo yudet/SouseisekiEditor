@@ -1,0 +1,27 @@
+{
+	"translation":{
+		"open-file":"ファイルを開く",
+		"save-file":"保存",
+		"import-file":"インポート",
+		"export-file":"エクスポート",
+		"mlt-browser":"複数行テンプレート",
+
+		"mlt-file":"MLTファイル",
+		"ast-file":"ASTファイル",
+		"xaa-file":"XAAファイル",
+		"text-file":"テキストファイル",
+
+		"new-tab":"新しいタブ",
+
+		"offset-x":"X",
+		"offset-y":"Y",
+
+		"filter":"フィルター",
+		"filter-simple-box":"単線ボックス",
+		"filter-bold-box":"太線ボックス",
+
+		"scene-result":"結果",
+
+		"vo-editor":"vO-Editor"
+	}
+}
