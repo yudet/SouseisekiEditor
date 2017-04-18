@@ -4,7 +4,7 @@
   "description": "HTML5 Ascii Art Editor",
   "private": true,
   "scripts": {
-    "build": "tsc;webpack --progress",
+    "build": "npm i;tsc;webpack --progress",
     "tsc": "tsc -w",
     "webpack": "webpack -w",
     "ytest": "node ts/test/ys.test.js",
