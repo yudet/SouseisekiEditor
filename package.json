@@ -4,7 +4,8 @@
   "description": "HTML5 Ascii Art Editor",
   "private": true,
   "scripts": {
-    "build": "npm i;tsc;webpack --progress",
+    "build": "tsc;webpack --progress",
+	"electron-packager":"electron-packager ./ SouseisekiEditor --ignore ./src/app --platform=linux --arch=x64 --asar",
     "tsc": "tsc -w",
     "webpack": "webpack -w",
     "ytest": "node ts/test/ys.test.js",
