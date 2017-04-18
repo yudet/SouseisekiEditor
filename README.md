@@ -1,6 +1,6 @@
 # Souseiseki-Editor
 
-> Electron Ascii Art Editor
+> A Unuseful Electron Ascii Art Editor
 
 ## Build Setup
 
