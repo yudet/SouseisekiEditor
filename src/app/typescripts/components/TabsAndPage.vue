@@ -1,4 +1,3 @@
-
 <template lang="pug">
 div.page-and-tabgroup.d-flex.flex-column.align-items-stretch
 	.d-flex.flex-row.tabs

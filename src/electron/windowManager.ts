@@ -18,7 +18,7 @@ class MltBrowserWindowFactory extends WindowFactory{
 	public name:string='mltbrowser';
 	public filePath:string='dist/mltbrowser.html';
 	public argForBW:any={ width: 800, height: 600 };
-	public isDebug:boolean=false;
+	public isDebug:boolean=true;
 	public isMain:boolean=false;
 	public isSingle:boolean=true;
 	public isClosed:boolean=true;

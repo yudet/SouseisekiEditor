@@ -25618,7 +25618,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.mlt-browser[data-v-7e18ab97] {\n  height: 100%;\n  overflow: scroll;\n}\n.aa[data-v-7e18ab97] {\n  cursor: pointer;\n  white-space: pre;\n}\n.aa.even[data-v-7e18ab97] {\n    background-color: #DDD;\n}\n", "", {"version":3,"sources":["/home/adam/Documents/vo-editor/src/app/typescripts/components/MltView.vue"],"names":[],"mappings":";AAAA;EACE,aAAa;EACb,iBAAiB;CAAE;AAErB;EACE,gBAAgB;EAChB,iBAAiB;CAAE;AACnB;IACE,uBAAuB;CAAE","file":"MltView.vue","sourcesContent":[".mlt-browser {\n  height: 100%;\n  overflow: scroll; }\n\n.aa {\n  cursor: pointer;\n  white-space: pre; }\n  .aa.even {\n    background-color: #DDD; }\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.aas-view[data-v-7e18ab97] {\n  flex-grow: 1;\n  overflow: scroll;\n}\n.aa[data-v-7e18ab97] {\n  cursor: pointer;\n  white-space: pre;\n}\n.aa.even[data-v-7e18ab97] {\n    background-color: #DDD;\n}\n", "", {"version":3,"sources":["/home/adam/Documents/vo-editor/src/app/typescripts/components/MltView.vue"],"names":[],"mappings":";AAAA;EACE,aAAa;EACb,iBAAiB;CAAE;AAErB;EACE,gBAAgB;EAChB,iBAAiB;CAAE;AACnB;IACE,uBAAuB;CAAE","file":"MltView.vue","sourcesContent":[".aas-view {\n  flex-grow: 1;\n  overflow: scroll; }\n\n.aa {\n  cursor: pointer;\n  white-space: pre; }\n  .aa.even {\n    background-color: #DDD; }\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -36291,6 +36291,7 @@ const vue_1 = __webpack_require__(2);
 const ipcController_ts_1 = __webpack_require__(40);
 const vue_class_component_1 = __webpack_require__(3);
 const hukutemp_ts_1 = __webpack_require__(39);
+const $ = __webpack_require__(35);
 let MltBrowser = class MltBrowser extends vue_1.default {
     constructor() {
         super();
@@ -36298,8 +36299,27 @@ let MltBrowser = class MltBrowser extends vue_1.default {
     get aas() {
         return this.state.aas;
     }
+    get captions() {
+        let r = [];
+        for (let i = 0; i < this.aas.length; i++) {
+            if (this.isCaption(this.aas[i])) {
+                r.push({ cap: this.aas[i], index: i });
+            }
+        }
+        return r;
+    }
+    selectCaption(e) {
+        let aa = $(this.$refs['aa' + e.target.value]);
+        let aas = $(this.$refs.aasView);
+        aas.animate({
+            scrollTop: aa.offset().top - aas.offset().top + aas.scrollTop()
+        }, 200);
+    }
     isEven(n) {
         return n % 2 == 0;
+    }
+    isCaption(aa) {
+        return !aa.match(/[\n\r]/);
     }
     sendAA(aa) {
         console.log(aa);
@@ -37503,8 +37523,26 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "d-flex flex-column mlt-view"
+  }, [_c('div', {
+    staticClass: "aas-search"
+  }, [_c('select', {
+    staticClass: "form-control form-control-sm",
+    on: {
+      "change": _vm.selectCaption
+    }
+  }, _vm._l((_vm.captions), function(caption, index) {
+    return _c('option', {
+      domProps: {
+        "value": caption.index
+      }
+    }, [_vm._v(_vm._s(caption.cap))])
+  }))]), _c('div', {
+    ref: "aasView",
+    staticClass: "aas-view"
   }, _vm._l((_vm.aas), function(aa, index) {
     return _c('div', {
+      ref: "aa" + index,
+      refInFor: true,
       staticClass: "aa",
       class: {
         even: _vm.isEven(index)
@@ -37515,7 +37553,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_vm._v(_vm._s(aa))])
-  }))
+  }))])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
