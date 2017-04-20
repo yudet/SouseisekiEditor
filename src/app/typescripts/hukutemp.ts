@@ -1,6 +1,8 @@
 import axios from 'axios';
+import * as localforage from 'localforage';
 
 export abstract class AASupplier {
+	public id:string;
 	public abstract getAAList():Promise<any>
 }
 
@@ -10,6 +12,9 @@ export class YaruyomiSupplier extends AASupplier{
 	constructor(version:string){
 		super();
 		this.version=version;
+	}
+	get id():string{
+		return 'Yaruyomi-'+this.version;
 	}
 	private loadYaruyomi(o:any):Mlt{
 		if(o.h==null){
@@ -34,6 +39,7 @@ export class YaruyomiSupplier extends AASupplier{
 							a[i]=this.loadYaruyomi(a[i]);
 						}
 						this.aaList=a;
+						// console.log(a);
 						resolve(this.aaList);
 					});
 				});
@@ -53,16 +59,21 @@ export abstract class Mlt {
 }
 
 export abstract class FileMlt extends Mlt {
+	public mltType:string;
 	protected aas:Array<string>=new Array<string>();
 	protected isUpdated:boolean;
 	protected isLoaded:boolean=false;
 	public isDirectory:boolean=false;
-	public abstract getAAs():Promise<Array<string>>;
+	public getAAs():Promise<Array<string>>{
+		return new Promise((resolve:Function)=>{
+			resolve(this.aas)
+		});
+	};
 }
 
 export abstract class DirectoryMlt extends Mlt {
 	protected contents:Array<Mlt>;
-	protected isOpen:boolean=false;
+	public isOpen:boolean=false;
 	public isDirectory:boolean=true;
 }
 
@@ -75,6 +86,7 @@ export class YaruyomiFileMlt extends FileMlt{
 		this.id=id;
 		this.isNew=state.indexOf('n')!=-1;
 		this.isUpdated=state.indexOf('u')!=-1;
+		this.mltType='yaruyomi';
 	}
 	public getAAs():any{
 		if(!this.isLoaded){

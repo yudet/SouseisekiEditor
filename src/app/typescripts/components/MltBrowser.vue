@@ -12,19 +12,25 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import * as localforage from 'localforage';
 import Component from 'vue-class-component';
 import '../../styles/style.scss';
-import {AASupplier,YaruyomiSupplier,FileMlt} from '../hukutemp.ts';
+import {AASupplier,YaruyomiSupplier,FileMlt,Mlt,YaruyomiFileMlt} from '../hukutemp.ts';
 
 class State{
 	selectedFileMlt:FileMlt;
 	selectedDir:string;
 	aas:Array<string>=[];
 	getFileMlt(e:FileMlt){
-		this.selectedFileMlt=e;
+			console.log(e);
+		if(e.mltType==='yaruyomi'){
+			this.selectedFileMlt = e as YaruyomiFileMlt;
+		}
 		this.selectedFileMlt.getAAs().then((a:Array<string>)=> {
 			this.aas=a;
 		});
+	}
+	saveOpen(){
 	}
 }
 
@@ -43,19 +49,17 @@ export default class MltBrowser extends Vue {
 	private selectedDirStr:string;
 	constructor(){
 		super();
+		this.state=new State();
 		this.selectedDir=this.list[1];
 	}
 	get selectedDir():string{
-		this.ys.getAAList().then((d:Array<any>)=> {
-			this.aaList=d;
-		});
-		return this.selectedDirStr;
+		return this.state.selectedDir;
 	}
 	set selectedDir(s:string){
-		this.selectedDirStr=s;
+		this.state.selectedDir=s;
 		this.ys = new YaruyomiSupplier(s);
-		this.ys.getAAList().then((d:Array<any>)=> {
-			this.aaList=d;
+		this.ys.getAAList().then((l)=>{
+			this.aaList=l;
 		});
 	}
 }

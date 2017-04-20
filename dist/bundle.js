@@ -23989,6 +23989,9 @@ class YaruyomiSupplier extends AASupplier {
         this.aaList = null;
         this.version = version;
     }
+    get id() {
+        return 'Yaruyomi-' + this.version;
+    }
     loadYaruyomi(o) {
         if (o.h == null) {
             // directory
@@ -24013,6 +24016,7 @@ class YaruyomiSupplier extends AASupplier {
                         a[i] = this.loadYaruyomi(a[i]);
                     }
                     this.aaList = a;
+                    // console.log(a);
                     resolve(this.aaList);
                 });
             });
@@ -24035,6 +24039,12 @@ class FileMlt extends Mlt {
         this.isLoaded = false;
         this.isDirectory = false;
     }
+    getAAs() {
+        return new Promise((resolve) => {
+            resolve(this.aas);
+        });
+    }
+    ;
 }
 exports.FileMlt = FileMlt;
 class DirectoryMlt extends Mlt {
@@ -24053,6 +24063,7 @@ class YaruyomiFileMlt extends FileMlt {
         this.id = id;
         this.isNew = state.indexOf('n') != -1;
         this.isUpdated = state.indexOf('u') != -1;
+        this.mltType = 'yaruyomi';
     }
     getAAs() {
         if (!this.isLoaded) {
@@ -36234,10 +36245,15 @@ class State {
         this.aas = [];
     }
     getFileMlt(e) {
-        this.selectedFileMlt = e;
+        console.log(e);
+        if (e.mltType === 'yaruyomi') {
+            this.selectedFileMlt = e;
+        }
         this.selectedFileMlt.getAAs().then((a) => {
             this.aas = a;
         });
+    }
+    saveOpen() {
     }
 }
 let MltBrowser = class MltBrowser extends vue_1.default {
@@ -36246,19 +36262,17 @@ let MltBrowser = class MltBrowser extends vue_1.default {
         this.ys = new hukutemp_ts_1.YaruyomiSupplier('v21.3');
         this.state = new State();
         this.list = ['v21.3', 'v21.3.1'];
+        this.state = new State();
         this.selectedDir = this.list[1];
     }
     get selectedDir() {
-        this.ys.getAAList().then((d) => {
-            this.aaList = d;
-        });
-        return this.selectedDirStr;
+        return this.state.selectedDir;
     }
     set selectedDir(s) {
-        this.selectedDirStr = s;
+        this.state.selectedDir = s;
         this.ys = new hukutemp_ts_1.YaruyomiSupplier(s);
-        this.ys.getAAList().then((d) => {
-            this.aaList = d;
+        this.ys.getAAList().then((l) => {
+            this.aaList = l;
         });
     }
 };
@@ -36324,6 +36338,12 @@ let MltBrowser = class MltBrowser extends vue_1.default {
     sendAA(aa) {
         console.log(aa);
         ipcController_ts_1.default.sendAA(aa);
+    }
+    updated() {
+        let aas = $(this.$refs.aasView);
+        aas.animate({
+            scrollTop: 0
+        }, 200);
     }
 };
 MltBrowser = __decorate([
@@ -36424,6 +36444,10 @@ let TreeView = class TreeView extends vue_1.default {
     }
     clickFileName(e) {
         this.state.getFileMlt(e);
+    }
+    openDir(e) {
+        e.isOpen = !e.isOpen;
+        console.log(e);
     }
 };
 TreeView = __decorate([
@@ -37237,7 +37261,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "file-name",
       on: {
         "click": function($event) {
-          e.isOpen = !e.isOpen
+          _vm.openDir(e)
         }
       }
     }, [_vm._v(_vm._s(e.title))]), (!!e.isDirectory && e.isOpen) ? _c('tree-view', {

@@ -55,6 +55,12 @@ export default class MltBrowser extends Vue {
 	constructor(){
 		super();
 	}
+	updated(){
+		let aas:JQuery=$(this.$refs.aasView as Element);
+		aas.animate({
+			scrollTop: 0
+		},200);
+	}
 }
 </script>
 

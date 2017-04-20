@@ -4,7 +4,7 @@ ul.tree-view
 		span.directory(v-if='!!e.isDirectory')
 			i.fa.fa-folder(v-if='!e.isOpen')
 			i.fa.fa-folder-open(v-if='!!e.isOpen')
-			span.file-name(@click='e.isOpen=!e.isOpen') {{ e.title }}
+			span.file-name(@click='openDir(e)') {{ e.title }}
 			tree-view.p-2(:list='e.contents',v-if='!!e.isDirectory && e.isOpen',:state='state')
 		span.file(v-if='!e.isDirectory')
 			span.file-name(@click='clickFileName(e)') {{ e.title }}
@@ -13,7 +13,7 @@ ul.tree-view
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import {FileMlt} from '../hukutemp';
+import {FileMlt,DirectoryMlt} from '../hukutemp';
 @Component({
 	props:{
 		list:Array,
@@ -30,6 +30,10 @@ export default class TreeView extends Vue {
 	}
 	clickFileName(e:FileMlt){
 		this.state.getFileMlt(e);
+	}
+	openDir(e:DirectoryMlt){
+		e.isOpen=!e.isOpen
+		console.log(e);
 	}
 }
 
