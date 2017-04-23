@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import i18next from 'i18next';
+import * as localforage from 'localforage';
 
 import Header from './components/Header.vue';
 import App from './components/App.vue';
@@ -29,6 +30,7 @@ class MainTabsAndPage extends TabsAndPage{
 
 Vue.config.silent = false;
 Vue.config.devtools = false;
+localforage.setDriver(localforage.LOCALSTORAGE);
 
 Vue.component('app',App);
 Vue.component('layers-and-editable',LayersAndEditable);

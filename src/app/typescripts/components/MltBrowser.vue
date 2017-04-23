@@ -5,7 +5,7 @@
 			select.form-control.form-control-sm(v-model='selectedDir')
 				option(v-for='(dirStr,index) in list')
 					| {{dirStr}}
-			tree-view.tree-view(:list='aaList',:state='state')
+			tree-view.tree-view(:list='aaList',:state='state',@dirOpen='dirOpen')
 		.col-18.no-padding
 			mlt-view.mlt-view(:state='state')
 </template>
@@ -61,6 +61,20 @@ export default class MltBrowser extends Vue {
 		this.ys.getAAList().then((l)=>{
 			this.aaList=l;
 		});
+	}
+	dirOpen(){
+		const chooseIsOpen=(l:Array<any>)=>{
+			let r:Array<any>=[];
+			for(let i in l){
+				if(l[i].isDirectory){
+					r[i]={isOpen:l[i].isOpen,contents:chooseIsOpen(l[i].contents)};
+				}else{
+					r[i]=[];
+				}
+			}
+			return r;
+		}
+		localforage.setItem('',chooseIsOpen(this.aaList));
 	}
 }
 

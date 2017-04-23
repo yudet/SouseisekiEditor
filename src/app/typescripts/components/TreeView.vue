@@ -5,7 +5,7 @@ ul.tree-view
 			i.fa.fa-folder(v-if='!e.isOpen')
 			i.fa.fa-folder-open(v-if='!!e.isOpen')
 			span.file-name(@click='openDir(e)') {{ e.title }}
-			tree-view.p-2(:list='e.contents',v-if='!!e.isDirectory && e.isOpen',:state='state')
+			tree-view.p-2(:list='e.contents',v-if='!!e.isDirectory && e.isOpen',:state='state',@dirOpen='$emit("dirOpen")')
 		span.file(v-if='!e.isDirectory')
 			span.file-name(@click='clickFileName(e)') {{ e.title }}
 </template>
@@ -33,7 +33,7 @@ export default class TreeView extends Vue {
 	}
 	openDir(e:DirectoryMlt){
 		e.isOpen=!e.isOpen
-		console.log(e);
+		this.$emit('dirOpen');
 	}
 }
 
