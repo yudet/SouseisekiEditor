@@ -22,7 +22,6 @@ class State{
 	selectedDir:string;
 	aas:Array<string>=[];
 	getFileMlt(e:FileMlt){
-			console.log(e);
 		if(e.mltType==='yaruyomi'){
 			this.selectedFileMlt = e as YaruyomiFileMlt;
 		}
@@ -74,7 +73,7 @@ export default class MltBrowser extends Vue {
 			}
 			return r;
 		}
-		localforage.setItem('',chooseIsOpen(this.aaList));
+		localforage.setItem(this.ys.id,chooseIsOpen(this.aaList));
 	}
 }
 

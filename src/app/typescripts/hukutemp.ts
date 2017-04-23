@@ -30,16 +30,25 @@ export class YaruyomiSupplier extends AASupplier{
 		}
 	}
 	public getAAList():any{
+		const setIsOpen=(l:Array<any>,isOpens:Array<any>)=>{
+			for(let i in isOpens){
+				l[i].isOpen=isOpens[i].isOpen;
+				setIsOpen(l[i].contents,isOpens[i].contents)
+			}
+		}
+		let a:any[];
 		if(this.aaList == null){
 			return axios.get(`http://aa.yaruyomi.com/api.php?mode=list&version=${this.version}`)
 				.then((res:any)=>{
+					a=res.data;
+					for(let i=0;i<a.length;i++){
+						a[i]=this.loadYaruyomi(a[i]);
+					}
+					return localforage.getItem(this.id)
+				}).then((item:any)=>{
+					setIsOpen(a,item);
+					this.aaList=a;
 					return new Promise((resolve:Function)=>{
-						let a=res.data;
-						for(let i=0;i<a.length;i++){
-							a[i]=this.loadYaruyomi(a[i]);
-						}
-						this.aaList=a;
-						// console.log(a);
 						resolve(this.aaList);
 					});
 				});
