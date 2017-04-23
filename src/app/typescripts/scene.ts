@@ -1,5 +1,6 @@
-import Base from './base'
-import Layer from './layer'
+import Base from './base';
+import Layer from './layer';
+import Util from './util';
 
 export default class Scene extends Base {
 	lowers: Array<Layer>;
