@@ -1,11 +1,13 @@
 <template lang="pug">
 .container-fluid.mlt-browser
 	.row
-		.col-6.no-padding
-			select.form-control.form-control-sm(v-model='selectedDir')
+		.col-6.no-padding.d-flex.flex-column.align-items-stretch
+			select.select-dir.p-0.form-control.form-control-sm(v-model='selectedDir')
 				option(v-for='(dirStr,index) in list')
 					| {{dirStr}}
-			tree-view.tree-view(:list='aaList',:state='state',@dirOpen='dirOpen')
+			div.p-0.m-0.tree-view.align-self-stretch
+				tree-view(:list='aaList',:state='state',@dirOpen='dirOpen',v-if='searchStr.length==0')
+			input.p-0.form-control.form-control-sm(v-model='searchStr')
 		.col-18.no-padding
 			mlt-view.mlt-view(:state='state')
 </template>
@@ -14,6 +16,7 @@
 import Vue from 'vue';
 import * as localforage from 'localforage';
 import Component from 'vue-class-component';
+import {t} from 'i18next';
 import '../../styles/style.scss';
 import {AASupplier,YaruyomiSupplier,FileMlt,Mlt,YaruyomiFileMlt} from '../hukutemp.ts';
 
@@ -41,10 +44,11 @@ class State{
 	}
 })
 export default class MltBrowser extends Vue {
-	ys:AASupplier = new YaruyomiSupplier('v21.3')
+	ys:AASupplier = new YaruyomiSupplier('v21.4')
 	state:State=new State();
-	list:Array<string>=['v21.3','v21.3.1'];
+	list:Array<string>=['v21.3','v21.3.1','v21.4'];
 	aaList:Array<any>;
+	searchStr:string='';
 	private selectedDirStr:string;
 	constructor(){
 		super();
@@ -80,6 +84,7 @@ export default class MltBrowser extends Vue {
 </script>
 
 <style scoped>
+
 .mlt-browser{
 	height:100%;
 	overflow:hidden;
@@ -88,12 +93,13 @@ export default class MltBrowser extends Vue {
 	height:100%;
 }
 .tree-view{
-	height:100%;
-	overflow:scroll;
+	overflow:auto;
+	flex-grow:1;
+}
+.select-dir{
+	min-height:1.8125rem;
 }
 .mlt-view{
-	height:100%;
-	overflow:scroll;
 }
 .no-padding{
 	padding:0;
