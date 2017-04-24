@@ -15,8 +15,7 @@ const sjis:{[key:string]:number} = require('../../src/test/sjis.json');
 
 describe('file',()=>{
 	it('mlt',()=>{
-		const interpreter:MltFileInterpreter=new MltFileInterpreter('./');
-		const str:String=interpreter.convertUtf8ToSjis('あ'+String.fromCharCode(0x2003)+'a?');
+		const str:String=Util.convertUtf8ToSjis('あ'+String.fromCharCode(0x2003)+'a?');
 		chai.expect(str).to.eql('あ&#x2003;a?');
 	});
 	it('ast',()=>{

@@ -195,6 +195,21 @@ export default class Util {
 		}
 	}
 
+	public static convertUtf8ToSjis(str:string):string{
+		return str.replace(/./g,
+			(match)=>{
+				return Util.convertCharUtf8ToSjis(match);
+			}
+		);
+	}
+
+	private static convertCharUtf8ToSjis(c:string):string{
+		if(Util.isUtf8(c)){
+			return '&#x'+c.charCodeAt(0).toString(16)+';';
+		}
+		return c;
+	}
+
 	public static outputSjisAllWidth(){
 		let a:{[key:string]:number}={};
 		for(let i=1;i<0xffff;i++){

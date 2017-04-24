@@ -98,7 +98,7 @@ export default class Layer{
 				}
 			}
 
-			x += Util.strWidth(frontArr[i].substr(0,spSize));
+			x += Util.strWidth(frontArr[i].substr(0,spSize-1));
 			frontArr[i] = frontArr[i].substr(spSize);
 
 			//w:前の文字列自体の大きさ
@@ -185,8 +185,10 @@ export default class Layer{
 
 	get textWithFilters():string {
 		let str=this.text;
-		for(let f of this.filters){
-			str=this.getRealFilter(f).filter(str);
+		if(this.filters.length>0){
+			for(let f of this.filters){
+				str=this.getRealFilter(f).filter(str);
+			}
 		}
 		return str;
 	}
@@ -201,13 +203,6 @@ export default class Layer{
 		for (i = 0; i < arr.length; i++) {
 			if(arr[i]!=''){
 				let str:string=arr[i];
-				if(Util.isSpace(arr[i].charAt(0))){
-					str=str.replace(/^\s+/g,(match)=>{
-						x+=Util.strWidth(match);
-						return '';
-					});
-				}else{
-				}
 				if(x>0){
 					arr[i] = Util.generateSpace(x) + str;
 				}else if(x<0){

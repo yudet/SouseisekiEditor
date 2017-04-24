@@ -41,20 +41,6 @@ export abstract class FileInterpreter{
 export abstract class SjisFileInterpreter extends FileInterpreter{
 	protected encoding:string='Shift_JIS';
 
-	convertUtf8ToSjis(str:string):string{
-		return str.replace(/./g,
-			(match)=>{
-				return this.convertCharUtf8ToSjis(match);
-			}
-		);
-	}
-
-	private convertCharUtf8ToSjis(c:string):string{
-		if(Util.isUtf8(c)){
-			return '&#x'+c.charCodeAt(0).toString(16)+';';
-		}
-		return c;
-	}
 }
 export class MltFileInterpreter extends SjisFileInterpreter{
 	getTab():Tab{
@@ -73,7 +59,7 @@ export class MltFileInterpreter extends SjisFileInterpreter{
 	save(t:Tab,p:string){
 		const strBufs:string[]=[];
 		for(let i in t.lowers){
-			strBufs.push(this.convertUtf8ToSjis(t.lowers[i].composed));
+			strBufs.push(Util.convertUtf8ToSjis(t.lowers[i].composed));
 		}
 		fs.writeFile(p,iconv.encode(strBufs.join('\n[SPLIT]\n'),this.encoding));
 	}
@@ -108,7 +94,7 @@ export class AstFileInterpreter extends SjisFileInterpreter{
 	save(t:Tab,p:string){
 		const strBufs:string[]=[];
 		for(let i in t.lowers){
-			strBufs.push(this.convertUtf8ToSjis(t.lowers[i].composed));
+			strBufs.push(Util.convertUtf8ToSjis(t.lowers[i].composed));
 		}
 		fs.writeFile(p,iconv.encode(strBufs.join('\n[SPLIT]\n'),this.encoding));
 	}

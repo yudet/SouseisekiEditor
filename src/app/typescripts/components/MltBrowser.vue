@@ -2,11 +2,12 @@
 .container-fluid.mlt-browser
 	.row
 		.col-6.no-padding.d-flex.flex-column.align-items-stretch
-			select.select-dir.p-0.form-control.form-control-sm(v-model='selectedDir')
+			select.select-dir.p-0.form-control.form-control-sm(v-model='selectedDir',@change='loadAAList',@load='loadAAList')
 				option(v-for='(dirStr,index) in list')
 					| {{dirStr}}
 			div.p-0.m-0.tree-view.align-self-stretch
-				tree-view(:list='aaList',:state='state',@dirOpen='dirOpen',v-if='searchStr.length==0')
+				tree-view(:list='aaList',:state='state',@dirOpen='dirOpen',v-if='searchStr.length==0&&!isLoading')
+				i.fa.fa-cog.fa-spin(v-if='searchStr.length==0&&isLoading')
 			input.p-0.form-control.form-control-sm(v-model='searchStr')
 		.col-18.no-padding
 			mlt-view.mlt-view(:state='state')
@@ -22,7 +23,6 @@ import {AASupplier,YaruyomiSupplier,FileMlt,Mlt,YaruyomiFileMlt} from '../hukute
 
 class State{
 	selectedFileMlt:FileMlt;
-	selectedDir:string;
 	aas:Array<string>=[];
 	getFileMlt(e:FileMlt){
 		if(e.mltType==='yaruyomi'){
@@ -44,25 +44,27 @@ class State{
 	}
 })
 export default class MltBrowser extends Vue {
-	ys:AASupplier = new YaruyomiSupplier('v21.4')
+	ys:AASupplier;
 	state:State=new State();
 	list:Array<string>=['v21.3','v21.3.1','v21.4'];
 	aaList:Array<any>;
 	searchStr:string='';
 	private selectedDirStr:string;
+	isLoading:boolean=true;
+	selectedDir:string;
 	constructor(){
 		super();
 		this.state=new State();
-		this.selectedDir=this.list[1];
+		this.selectedDir=this.list[2];
+		this.$nextTick(()=>{this.loadAAList()});
 	}
-	get selectedDir():string{
-		return this.state.selectedDir;
-	}
-	set selectedDir(s:string){
-		this.state.selectedDir=s;
-		this.ys = new YaruyomiSupplier(s);
+	loadAAList(){
+		this.ys = new YaruyomiSupplier(this.selectedDir);
+		this.isLoading=true;
 		this.ys.getAAList().then((l)=>{
+			console.log(l,this.selectedDir);
 			this.aaList=l;
+			this.isLoading=false;
 		});
 	}
 	dirOpen(){

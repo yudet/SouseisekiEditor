@@ -32,7 +32,6 @@ import {AAFilter,filters} from '../filter.ts';
 export default class FilterSelect extends Vue {
 	layer:Layer;
 	get filterList():AAFilter[]{
-		console.log(filters);
 		return filters
 	};
 	searchFilter(str:string){

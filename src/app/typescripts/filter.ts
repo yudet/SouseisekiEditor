@@ -27,7 +27,6 @@ export class BoxAAFilter extends AAFilter{
 	}
 	constructor(){
 		super();
-		console.log(t('filter-'+this.id));
 	}
 	filter(str:string):string{
 		let strs:string[]=str.split(/[\n\r]/),result:string[]=new Array();

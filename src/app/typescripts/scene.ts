@@ -23,7 +23,11 @@ export default class Scene extends Base {
 		for(let i:number=0;i<this.lowers.length;i++){
 			res.text = res.compose(this.lowers[i]);
 		}
-		return res.text;
+		return res.text.replace(/[\u0020\u00a0\u200a\u2009\u2006\u2005\u2002\u2007\u3000]+/g,(match)=>{
+			// return match
+			return Util.generateSpace(Util.strWidth(match));
+		});
+		// return res.text;
 	}
 	get text():string{
 		return this.lower.text;

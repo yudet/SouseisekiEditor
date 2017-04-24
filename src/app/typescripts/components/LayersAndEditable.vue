@@ -1,7 +1,11 @@
 
 <template lang="pug">
 div.layers-and-editable.d-flex.flex-row.align-items-stretch
-	aa-editable.p-0.aa.align-self-stretch(:layer='scene.lower',:composed='scene.composed',:editable='!(isComposed || isAdjusting)')
+	.aa-wrapper.align-self-stretch.d-flex.flex-column
+		aa-editable.p-0.aa.align-self-stretch(:layer='scene.lower',:composed='scene.composed',:editable='!(isComposed || isAdjusting)')
+		.footer.small(v-if='isComposed || isAdjusting') 
+			span.info-part(:title='t("bytes-number")',data-toggle='tooltip') B:
+				| {{bytes}}
 
 	.p-0.flex-column.tool-buttons
 		.layer.icon-layer.align-items-center.center.tool-button
@@ -40,6 +44,7 @@ div.layers-and-editable.d-flex.flex-row.align-items-stretch
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
+import * as iconv from 'iconv-lite';
 import Tab from '../tab.ts';
 import Scene from '../scene.ts';
 import Layer from '../layer.ts';
@@ -55,6 +60,9 @@ export default class LayerAndEditable extends Vue {
 	scene:Scene;
 	isComposed:boolean=false;
 	isAdjusting:boolean=false;
+	get bytes():string{
+		return iconv.encode(Util.convertUtf8ToSjis(this.scene.composed),'Shift_JIS').length+'';
+	}
 	selectLayer(m:boolean,index:number){
 		if(m){
 			this.normal();
@@ -97,12 +105,17 @@ export default class LayerAndEditable extends Vue {
 a{
 	cursor:pointer;
 }
-.aa{
+.aa-wrapper{
 	max-width:100%;
 	max-height:100%;
-	white-space:pre;
 	flex-grow:1;
-	resize: vertical;
+	.aa{
+		max-width:100%;
+		max-height:100%;
+		white-space:pre;
+		flex-grow:1;
+		resize: vertical;
+	}
 }
 .lower-layer{
 	position:absolute;
@@ -117,6 +130,18 @@ a{
 }
 .layers-and-editable{
 	flex-grow:1;
+}
+span.info-part{
+	background-color:transparent;
+	padding-left:0.5em;
+	padding-right:0.5em;
+	border-left-style:solid;
+	border-left-width:1px;
+	border-left-color:$gray-lighter;
+	&:first-child{
+		border-left-style:none;
+	}
+
 }
 .tool-buttons{
 	.tool-button{
