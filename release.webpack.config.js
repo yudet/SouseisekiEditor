@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+var BabiliPlugin = require("babili-webpack-plugin");
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -11,39 +12,47 @@ module.exports = {
 	},
 
 	module: {
-		rules: [{
-			test: /\.ts$/,
-			loader: 'ts-loader',
-			options: {
-				appendTsSuffixTo: [/\.vue$/]
-			},
-			exclude:['./node_modules/','./src/electron/']
-		}, {
-			test: /\.vue$/,
-			loader: 'vue-loader',
-			options: {
-				esModule: true,
-				loaders: {
-					css: 'vue-style-loader!css-loader'
+		rules: [
+			{
+				test: /\.js$/,
+				exclude: /node_modules/,
+				loader: 'babel',
+				query: {
+					presets: ['es2015']
 				}
-			}
-		}, {
-			test: /\.css$/,
-			loaders: [
-				'style-loader',
-				'css-loader',
-			],
-		}, {
-			test: /\.scss$/,
-			loaders: [
-				'style-loader',
-				'css-loader',
-				'sass-loader',
-			],
-		}, {
-			test: /\.(otf|eot|svg|ttf|woff|woff2)(\?.+)?$/,
-			loader: 'url-loader',
-		}, ],
+			},{
+				test: /\.ts$/,
+				loader: 'ts-loader',
+				options: {
+					appendTsSuffixTo: [/\.vue$/]
+				},
+				exclude:['./node_modules/','./src/electron/']
+			}, {
+				test: /\.vue$/,
+				loader: 'vue-loader',
+				options: {
+					esModule: true,
+					loaders: {
+						css: 'vue-style-loader!css-loader'
+					}
+				}
+			}, {
+				test: /\.css$/,
+				loaders: [
+					'style-loader',
+					'css-loader',
+				],
+			}, {
+				test: /\.scss$/,
+				loaders: [
+					'style-loader',
+					'css-loader',
+					'sass-loader',
+				],
+			}, {
+				test: /\.(otf|eot|svg|ttf|woff|woff2)(\?.+)?$/,
+				loader: 'url-loader',
+			}, ],
 	},
 
 	resolve: {
@@ -76,7 +85,9 @@ module.exports = {
 			Tab: "exports-loader?Tab!bootstrap/js/dist/tab",
 			Tooltip: "exports-loader?Tooltip!bootstrap/js/dist/tooltip",
 			Util: "exports-loader?Util!bootstrap/js/dist/util",
-		})
+		}),
+		new BabiliPlugin(
+		)
 	],
 	target: 'atom',
 

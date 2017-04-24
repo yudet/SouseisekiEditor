@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as iconv from 'iconv-lite';
+
 export default class Util {
 	private static space(d:number):string {
 		var DOT_1 = String.fromCharCode(0x200A),
