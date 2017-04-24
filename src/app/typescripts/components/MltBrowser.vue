@@ -1,16 +1,16 @@
 <template lang="pug">
 .container-fluid.mlt-browser
 	.row
-		.col-6.no-padding.d-flex.flex-column.align-items-stretch
+		.col-6.p-0.d-flex.flex-column.align-items-stretch
 			select.select-dir.p-0.form-control.form-control-sm(v-model='selectedDir',@change='loadAAList',@load='loadAAList')
 				option(v-for='(dirStr,index) in list')
 					| {{dirStr}}
 			div.p-0.m-0.tree-view.align-self-stretch
 				tree-view(:list='aaList',:state='state',@dirOpen='dirOpen',v-if='searchStr.length==0&&!isLoading')
-				i.fa.fa-cog.fa-spin(v-if='searchStr.length==0&&isLoading')
+				.loading
+					i.fa.fa-cog.fa-spin(v-if='searchStr.length==0&&isLoading')
 			input.p-0.form-control.form-control-sm(v-model='searchStr')
-		.col-18.no-padding
-			mlt-view.mlt-view(:state='state')
+		mlt-view.mlt-view.col-18.p-0.align-items-stretch(:state='state')
 </template>
 
 <script lang="ts">
@@ -62,7 +62,6 @@ export default class MltBrowser extends Vue {
 		this.ys = new YaruyomiSupplier(this.selectedDir);
 		this.isLoading=true;
 		this.ys.getAAList().then((l)=>{
-			console.log(l,this.selectedDir);
 			this.aaList=l;
 			this.isLoading=false;
 		});
@@ -89,7 +88,6 @@ export default class MltBrowser extends Vue {
 
 .mlt-browser{
 	height:100%;
-	overflow:hidden;
 }
 .row{
 	height:100%;
@@ -102,8 +100,12 @@ export default class MltBrowser extends Vue {
 	min-height:1.8125rem;
 }
 .mlt-view{
+	height:100%;
+	flex-grow:1;
 }
-.no-padding{
-	padding:0;
+.loading{
+	flex-grow:1;
+	text-align:center;
+	vertical-align:middle;
 }
 </style>

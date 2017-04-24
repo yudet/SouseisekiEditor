@@ -27884,7 +27884,7 @@ exports = module.exports = __webpack_require__(1)(undefined);
 
 
 // module
-exports.push([module.i, "\n.mlt-browser[data-v-45d4eab4]{\n\theight:100%;\n\toverflow:hidden;\n}\n.row[data-v-45d4eab4]{\n\theight:100%;\n}\n.tree-view[data-v-45d4eab4]{\n\toverflow:auto;\n\tflex-grow:1;\n}\n.select-dir[data-v-45d4eab4]{\n\tmin-height:1.8125rem;\n}\n.mlt-view[data-v-45d4eab4]{\n}\n.no-padding[data-v-45d4eab4]{\n\tpadding:0;\n}\n", ""]);
+exports.push([module.i, "\n.mlt-browser[data-v-45d4eab4]{\n\theight:100%;\n}\n.row[data-v-45d4eab4]{\n\theight:100%;\n}\n.tree-view[data-v-45d4eab4]{\n\toverflow:auto;\n\tflex-grow:1;\n}\n.select-dir[data-v-45d4eab4]{\n\tmin-height:1.8125rem;\n}\n.mlt-view[data-v-45d4eab4]{\n\theight:100%;\n\tflex-grow:1;\n}\n.loading[data-v-45d4eab4]{\n\tflex-grow:1;\n\ttext-align:center;\n\tvertical-align:middle;\n}\n", ""]);
 
 // exports
 
@@ -27968,7 +27968,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.aas-view[data-v-7e18ab97] {\n  flex-grow: 1;\n  overflow: scroll;\n}\n.aa[data-v-7e18ab97] {\n  cursor: pointer;\n  white-space: pre;\n}\n.aa.even[data-v-7e18ab97] {\n    background-color: #DDD;\n}\n", "", {"version":3,"sources":["/home/adam/Documents/vo-editor/src/app/typescripts/components/MltView.vue"],"names":[],"mappings":";AAAA;EACE,aAAa;EACb,iBAAiB;CAAE;AAErB;EACE,gBAAgB;EAChB,iBAAiB;CAAE;AACnB;IACE,uBAAuB;CAAE","file":"MltView.vue","sourcesContent":[".aas-view {\n  flex-grow: 1;\n  overflow: scroll; }\n\n.aa {\n  cursor: pointer;\n  white-space: pre; }\n  .aa.even {\n    background-color: #DDD; }\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.aas-view[data-v-7e18ab97] {\n  overflow: auto;\n}\n.aa[data-v-7e18ab97] {\n  width: auto;\n  cursor: pointer;\n  white-space: pre;\n}\n.aa.even[data-v-7e18ab97] {\n    background-color: #DDD;\n}\n", "", {"version":3,"sources":["/home/adam/Documents/vo-editor/src/app/typescripts/components/MltView.vue"],"names":[],"mappings":";AAAA;EACE,eAAe;CAAE;AAEnB;EACE,YAAY;EACZ,gBAAgB;EAChB,iBAAiB;CAAE;AACnB;IACE,uBAAuB;CAAE","file":"MltView.vue","sourcesContent":[".aas-view {\n  overflow: auto; }\n\n.aa {\n  width: auto;\n  cursor: pointer;\n  white-space: pre; }\n  .aa.even {\n    background-color: #DDD; }\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -38614,7 +38614,6 @@ let MltBrowser = class MltBrowser extends vue_1.default {
         this.ys = new hukutemp_ts_1.YaruyomiSupplier(this.selectedDir);
         this.isLoading = true;
         this.ys.getAAList().then((l) => {
-            console.log(l, this.selectedDir);
             this.aaList = l;
             this.isLoading = false;
         });
@@ -38668,6 +38667,7 @@ const $ = __webpack_require__(16);
 let MltBrowser = class MltBrowser extends vue_1.default {
     constructor() {
         super();
+        this.width = 0;
     }
     get aas() {
         return this.state.aas;
@@ -38682,7 +38682,7 @@ let MltBrowser = class MltBrowser extends vue_1.default {
         return r;
     }
     selectCaption(e) {
-        let aa = $(this.$refs['aa' + e.target.value]);
+        let aa = $(this.$refs.aa[e.target.value]);
         let aas = $(this.$refs.aasView);
         aas.animate({
             scrollTop: aa.offset().top - aas.offset().top + aas.scrollTop()
@@ -38700,6 +38700,11 @@ let MltBrowser = class MltBrowser extends vue_1.default {
     }
     updated() {
         let aas = $(this.$refs.aasView);
+        let aa = this.$refs.aa;
+        for (let i = 0; i < aa.length; i++) {
+            this.width = Math.max(this.width, aa[i].scrollWidth);
+        }
+        console.log(aa, this.width);
         aas.animate({
             scrollTop: 0
         }, 200);
@@ -39452,7 +39457,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "col-6 no-padding d-flex flex-column align-items-stretch"
+    staticClass: "col-6 p-0 d-flex flex-column align-items-stretch"
   }, [_c('select', {
     directives: [{
       name: "model",
@@ -39485,9 +39490,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "dirOpen": _vm.dirOpen
     }
-  }) : _vm._e(), (_vm.searchStr.length == 0 && _vm.isLoading) ? _c('i', {
+  }) : _vm._e(), _c('div', {
+    staticClass: "loading"
+  }, [(_vm.searchStr.length == 0 && _vm.isLoading) ? _c('i', {
     staticClass: "fa fa-cog fa-spin"
-  }) : _vm._e()], 1), _c('input', {
+  }) : _vm._e()])], 1), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -39504,14 +39511,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.searchStr = $event.target.value
       }
     }
-  })]), _c('div', {
-    staticClass: "col-18 no-padding"
-  }, [_c('mlt-view', {
-    staticClass: "mlt-view",
+  })]), _c('mlt-view', {
+    staticClass: "mlt-view col-18 p-0 align-items-stretch",
     attrs: {
       "state": _vm.state
     }
-  })], 1)])])
+  })], 1)])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -39935,7 +39940,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "d-flex flex-column mlt-view"
   }, [_c('div', {
-    staticClass: "aas-search"
+    staticClass: "aas-search p-0"
   }, [_c('select', {
     staticClass: "form-control form-control-sm",
     on: {
@@ -39949,15 +39954,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v(_vm._s(caption.cap))])
   }))]), _c('div', {
     ref: "aasView",
-    staticClass: "aas-view"
+    staticClass: "aas-view p-0 d-flex flex-column"
   }, _vm._l((_vm.aas), function(aa, index) {
     return _c('div', {
-      ref: "aa" + index,
+      ref: "aa",
       refInFor: true,
-      staticClass: "aa",
+      staticClass: "aa align-self-stretch",
       class: {
         even: _vm.isEven(index)
       },
+      style: ({
+        width: _vm.width + "px"
+      }),
       on: {
         "click": function($event) {
           _vm.sendAA(aa)

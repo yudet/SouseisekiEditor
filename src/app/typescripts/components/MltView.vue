@@ -1,11 +1,11 @@
 <template lang="pug">
 .d-flex.flex-column.mlt-view
-	.aas-search
+	.aas-search.p-0
 		select.form-control.form-control-sm(@change='selectCaption')
 			option(v-for='(caption,index) in captions',:value='caption.index')
 				| {{caption.cap}}
-	.aas-view(ref='aasView')
-		div.aa(v-for='(aa,index) in aas',:ref='"aa"+index',:class='{ even:isEven(index) }',@click='sendAA(aa)') {{aa}}
+	.aas-view.p-0.d-flex.flex-column(ref='aasView')
+		div.aa.align-self-stretch(v-for='(aa,index) in aas',ref='aa',:class='{ even:isEven(index) }',:style='{ width:width+"px" }',@click='sendAA(aa)') {{aa}}
 </template>
 
 <script lang="ts">
@@ -25,6 +25,7 @@ export default class MltBrowser extends Vue {
 	get aas():Array<string>{
 		return this.state.aas;
 	}
+	width:number=0;
 	get captions():[{cap:string,index:number}]{
 		let r:[{cap:string,index:number}]=[] as [{cap:string,index:number}];
 		for(let i=0;i<this.aas.length; i++){
@@ -35,7 +36,7 @@ export default class MltBrowser extends Vue {
 		return r;
 	}
 	selectCaption(e:any):void{
-		let aa:JQuery=$(this.$refs['aa'+e.target.value] as Element);
+		let aa:JQuery=$((this.$refs.aa as Elements)[e.target.value]);
 		let aas:JQuery=$(this.$refs.aasView as Element);
 		aas.animate({
 			scrollTop: aa.offset().top - aas.offset().top + aas.scrollTop()
@@ -57,6 +58,11 @@ export default class MltBrowser extends Vue {
 	}
 	updated(){
 		let aas:JQuery=$(this.$refs.aasView as Element);
+		let aa=this.$refs.aa as Element[];
+		for(let i=0;i<aa.length;i++){
+			this.width=Math.max(this.width,aa[i].scrollWidth);
+		}
+		console.log(aa,this.width);
 		aas.animate({
 			scrollTop: 0
 		},200);
@@ -66,10 +72,10 @@ export default class MltBrowser extends Vue {
 
 <style lang="sass" scoped>
 .aas-view{
-	flex-grow:1;
-	overflow:scroll;
+	overflow:auto;
 }
 .aa{
+	width:auto;
 	cursor:pointer;
 	white-space:pre;
 	&.even{
