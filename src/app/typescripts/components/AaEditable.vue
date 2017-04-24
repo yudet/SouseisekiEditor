@@ -1,7 +1,7 @@
 
 <template lang="pug">
 div.aa-editable
-	.back.aa(v-html='html',:style='{top:-top+"px",left:-left+"px"}')
+	.back.aa(v-html='html',:style='{top:-top+"px",left:-left+"px"}',v-if='state.isHighlight')
 	textarea.aa.main(@input='changed',@scroll='scroll',v-model='text',v-if='editable')
 	textarea.aa.main(@input='changed',@scroll='scroll',v-model='composed',readonly='true',v-if='!editable')
 </template>
@@ -38,11 +38,13 @@ function insertStr(str:string, index:number, insert:string):string {
 	props:{
 		layer:Layer,
 		editable:false,
-		composed:''
+		composed:'',
+		state:null
 	},
 })
 export default class AaEditable extends Vue {
 	layer:Layer;
+	state:any;
 	editable:boolean;
 	composed:string;
 	top:number=0;

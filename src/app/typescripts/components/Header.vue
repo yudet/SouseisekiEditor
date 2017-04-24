@@ -14,6 +14,9 @@
 			.btn-group
 				button.btn.btn-sm.align-middle(@click='startMltBrowser',:title='t("mlt-browser")',data-toggle='tooltip')
 					i.fa.fa-film
+			.btn-group
+				button.btn.btn-sm.align-middle(@click='toggleHighlight',:title='t("highlight-toggle")',data-toggle='tooltip')
+					i.fa.fa-paint-brush(:class='{ "text-muted":!state.isHighlight }')
 
 </template>
 
@@ -22,6 +25,7 @@ import Vue from 'vue';
 import JQuery from 'jquery';
 import Dialogs from '../dialog';
 import Component from 'vue-class-component';
+import * as localforage from 'localforage';
 import {ipcRenderer} from 'electron';
 import Util from '../util';
 import fs from 'fs';
@@ -50,7 +54,10 @@ export default class Header extends Vue {
 	exportFile(){
 		this.state.exportFile();
 	}
-
+	toggleHighlight(){
+		this.state.isHighlight=!this.state.isHighlight;
+		localforage.setItem('highlight',this.state.isHighlight);
+	}
 }
 </script>
 
@@ -69,15 +76,15 @@ export default class Header extends Vue {
 }
 button.btn{
 	background-color:$gray-lightest;
-cursor:pointer;
-	   i.fa{
-color:$black;
-	   }
-padding:0px 3px !important;
-		&:hover{
-			i.fa{
-color:$gray-dark;
-			}
+	cursor:pointer;
+	i{
+		color:$black;
+	}
+	padding:0px 3px !important;
+	&:hover{
+		i.fa{
+			color:$gray-dark;
 		}
+	}
 }
 </style>

@@ -1,10 +1,10 @@
 @import '~font-awesome/css/font-awesome.css'; 
+$stmr-font-path:"../../resource/fonts" !default;
 @font-face{
-	font-family:'Stmr';src:url('http://keage.sakura.ne.jp/fonts/Saitamaar.eot');
-	src:local('Saitamaar'),url('http://keage.sakura.ne.jp/fonts/Saitamaar.eot?#iefix') format('embedded-opentype'),
-	url('http://keage.sakura.ne.jp/fonts/Saitamaar.woff2') format('woff2'),
-	url('http://keage.sakura.ne.jp/fonts/Saitamaar.woff') format('woff'),
-	url('http://keage.sakura.ne.jp/fonts/Saitamaar.ttf') format('truetype');
+	font-family:'Stmr';src:url('#{$stmr-font-path}/Saitamaar.eot');
+	src:local('Saitamaar'),url('#{$stmr-font-path}/Saitamaar.woff2') format('woff2'),
+	url('#{$stmr-font-path}/Saitamaar.woff') format('woff'),
+	url('#{$stmr-font-path}/Saitamaar.ttf') format('truetype');
 	font-weight:normal;
 }
 .center{

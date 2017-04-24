@@ -7,12 +7,18 @@ div.app.d-flex.flex-column
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
+import * as localforage from 'localforage';
 import Dialogs from '../dialog';
 import TabsGroup from '../tabsgroup';
 import Tab from '../tab';
 import {FileInterpreter,MltFileInterpreter,FileInterpreterFactory} from '../file';
 
 class State{
+	constructor(){
+		//localforage.getItem('highlight').then((highlight:any)=>{
+		//	this.isHighlight=highlight=='true';
+		//});
+	}
 	createTabFromFile(isOpen:boolean){
 		const f:string[]=isOpen ? Dialogs.openFile() : Dialogs.importFile();
 		if(f){
@@ -45,6 +51,7 @@ class State{
 		this.writeTabToFile(false);
 	}
 	tg:TabsGroup=new TabsGroup();
+	isHighlight:boolean=true;
 }
 @Component({
 	props:{

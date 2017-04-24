@@ -11,7 +11,7 @@ div.page-and-tabgroup.d-flex.flex-column.align-items-stretch
 			i.fa.fa-plus-circle
 
 	.p-2.tabs-content.d-flex.flex-column.align-self-stretch.justify-content-end
-		layers-and-editable.p-2.align-self-stretch.full-height(:scene='tab.lower')
+		layers-and-editable.p-2.align-self-stretch.full-height(:scene='tab.lower',:state='state')
 		ul.p-2.scenes.nav.align-items-center
 			li.scene.nav-item.align-items-center(v-for='(scene,sIndex) in tab.lowers',@click='selectScene(!$event.target.matches("a.scene-close"),sIndex)')
 				a.nav-link.align-items-stretch(:class='{active: tab.index===sIndex}')
