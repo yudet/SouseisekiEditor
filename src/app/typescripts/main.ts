@@ -52,6 +52,7 @@ i18next.init({
 		ja: ja_JP,
 	}
 });
+Vue.use(require('vue-shortkey'))
 Vue.mixin({
 	methods:{
 		t: (str) => {

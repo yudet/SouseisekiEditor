@@ -78,7 +78,7 @@ module.exports = {
 			Util: "exports-loader?Util!bootstrap/js/dist/util",
 		})
 	],
-	target: 'atom',
+	target: 'electron-renderer',
 
 
 	devtool: 'source-map',

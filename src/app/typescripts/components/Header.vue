@@ -3,16 +3,16 @@
 	nav.navbar.navbar-light.bg-faded
 		.form-inline
 			.btn-group
-				button.btn.btn-sm.align-middle(@click='openFile',:title='t("open-file")',data-toggle='tooltip')
+				button.btn.btn-sm.align-middle(@click='openFile',:title='t("open-file")',data-toggle='tooltip',v-shortkey='shortkeys.openFile',@shortkey='openFile')
 					i.fa.fa-folder-open
-				button.btn.btn-sm.align-middle(@click='saveFile',:title='t("save-file")',data-toggle='tooltip')
+				button.btn.btn-sm.align-middle(@click='saveFile',:title='t("save-file")',data-toggle='tooltip',v-shortkey='shortkeys.saveFile',@shortkey='saveFile')
 					i.fa.fa-save
 				button.btn.btn-sm.align-middle(@click='importFile',:title='t("import-file")',data-toggle='tooltip')
 					i.fa.fa-caret-square-o-left
-				button.btn.btn-sm.align-middle(@click='exportFile',:title='t("export-file")',data-toggle='tooltip')
+				button.btn.btn-sm.align-middle(@click='exportFile',:title='t("export-file")',data-toggle='tooltip',v-shortkey='shortkeys.exportFile',@shortkey='exportFile')
 					i.fa.fa-file-text
 			.btn-group
-				button.btn.btn-sm.align-middle(@click='startMltBrowser',:title='t("mlt-browser")',data-toggle='tooltip')
+				button.btn.btn-sm.align-middle(@click='startMltBrowser',:title='t("mlt-browser")',data-toggle='tooltip',v-shortkey='shortkeys.startMltBrowser',@shortkey='startMltBrowser')
 					i.fa.fa-film
 			.btn-group
 				button.btn.btn-sm.align-middle(@click='toggleHighlight',:title='t("highlight-toggle")',data-toggle='tooltip')
@@ -23,14 +23,34 @@
 <script lang="ts">
 import Vue from 'vue';
 import JQuery from 'jquery';
-import Dialogs from '../dialog';
 import Component from 'vue-class-component';
+import fs from 'fs';
 import * as localforage from 'localforage';
 import {ipcRenderer} from 'electron';
-import Util from '../util';
-import fs from 'fs';
 import * as iconv from 'iconv-lite';
+import * as path from 'path';
+import * as storage from 'electron-json-storage';
 
+import Util from '../util';
+import Dialogs from '../dialog';
+import ConfigManager from '../config'
+
+let shortkeys:any={
+	'openFile':['ctrl','o'],
+	'saveFile':['ctrl','s'],
+	'exportFile':['ctrl','e'],
+	'startMltBrowser':['ctrl','h']
+};
+
+
+storage.get('shortkeys',(err:any,data:any)=>{
+	if (Object.keys(data).length === 0) {
+		storage.set('shortkeys',shortkeys,(err:any)=>{
+		});
+	} else {
+		shortkeys=data;
+	}
+});
 @Component({
 	props:{
 		state:null
@@ -57,6 +77,9 @@ export default class Header extends Vue {
 	toggleHighlight(){
 		this.state.isHighlight=!this.state.isHighlight;
 		localforage.setItem('highlight',this.state.isHighlight);
+	}
+	get shortkeys():any{
+		return shortkeys;
 	}
 }
 </script>

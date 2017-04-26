@@ -6,6 +6,9 @@ div.layers-and-editable.d-flex.flex-row.align-items-stretch
 		.footer.small(v-if='isComposed || isAdjusting') 
 			span.info-part(:title='t("bytes-number")',data-toggle='tooltip') B:
 				| {{bytes}}
+		.footer.small(v-if='!(isComposed || isAdjusting)') 
+			span.info-part(:title='t("bytes-number")',data-toggle='tooltip') B:
+				| {{lbytes}}
 
 	.p-0.flex-column.tool-buttons
 		.layer.icon-layer.align-items-center.center.tool-button
@@ -64,6 +67,9 @@ export default class LayerAndEditable extends Vue {
 	isAdjusting:boolean=false;
 	get bytes():string{
 		return iconv.encode(Util.convertUtf8ToSjis(this.scene.composed),'Shift_JIS').length+'';
+	}
+	get lbytes():string{
+		return iconv.encode(Util.convertUtf8ToSjis(this.scene.text),'Shift_JIS').length+'';
 	}
 	selectLayer(m:boolean,index:number){
 		if(m){

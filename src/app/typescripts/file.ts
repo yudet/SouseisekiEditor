@@ -8,6 +8,9 @@ import Util from './util';
 
 export class FileInterpreterFactory{
 	static get(path:string):FileInterpreter{
+		if(!path){
+			return new FileInterpreter(path);
+		}
 		if(path.endsWith('.mlt')){
 			return new MltFileInterpreter(path);
 		}
@@ -19,7 +22,7 @@ export class FileInterpreterFactory{
 		}
 	}
 }
-export abstract class FileInterpreter{
+export class FileInterpreter{
 	constructor(path:string){
 		this.path=path;
 	}
@@ -31,7 +34,8 @@ export abstract class FileInterpreter{
 	}
 
 	getTab():Tab{
-		return new Tab();
+		let t:Tab=new Tab();
+		return t;
 	}
 
 	save(t:Tab,p:string){

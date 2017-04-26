@@ -20,8 +20,7 @@ export abstract class WindowFactory {
 		}
 		if(this.isMain){
 			w.on('close', ()=> {
-				// process.exit();
-				w.hide();
+				app.quit();
 			});
 		}else{
 			w.on('close', ()=> {

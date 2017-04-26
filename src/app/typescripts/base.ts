@@ -1,4 +1,5 @@
 import * as Vue from 'vue';
+
 export default class Base {
 	name: string;
 	lowers: Array<any>;

@@ -52,6 +52,12 @@ export default class TabsAndPage extends Vue {
 	set tab(t:Tab){
 		this.tg.lower=t;
 	}
+	get tabs():Array<Tab>{
+		return this.tg.lowers;
+	}
+	set tabs(t:Array<Tab>){
+		this.tg.lowers=t;
+	}
 	selectTab(m:boolean,index:number):void{
 		if(m){this.tg.index=index}
 	}
@@ -74,6 +80,10 @@ export default class TabsAndPage extends Vue {
 				this.tg.lower.lower.add(new Layer({text:s.contents}),this.tg.lower.lower.index+1);
 				this.tg.lower.lower.index++;
 			}
+		});
+
+		this.tg.load().then((lowers:Array<Tab>)=>{
+			this.tabs=lowers;
 		});
 	}
 }

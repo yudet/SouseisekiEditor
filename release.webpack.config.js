@@ -89,8 +89,7 @@ module.exports = {
 		new BabiliPlugin(
 		)
 	],
-	target: 'atom',
-
+	target: 'electron-renderer',
 
 	devtool: 'source-map',
 

@@ -1,0 +1,6 @@
+{
+	"openFile":["ctrl","o"],
+	"saveFile":["ctrl","s"],
+	"exportFile":["ctrl","e"],
+	"startMltBrowser":["ctrl","h"]
+}

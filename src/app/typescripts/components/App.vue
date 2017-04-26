@@ -18,6 +18,7 @@ class State{
 		//localforage.getItem('highlight').then((highlight:any)=>{
 		//	this.isHighlight=highlight=='true';
 		//});
+		//this.tg.load();
 	}
 	createTabFromFile(isOpen:boolean){
 		const f:string[]=isOpen ? Dialogs.openFile() : Dialogs.importFile();
