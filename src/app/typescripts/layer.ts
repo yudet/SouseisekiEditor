@@ -29,7 +29,6 @@ export default class Layer{
 		if(n1>this.filters.length||n2>this.filters.length){
 			return;
 		}
-		console.log(n1,n2);
 		let tmp:any=this.filters[n1];
 		this.filters[n1]=this.filters[n2];
 		this.filters[n2]=tmp;
@@ -127,7 +126,6 @@ export default class Layer{
 				startStr = (backArr[i].slice(0, c - 2));
 				sp1 = Util.generateSpace(x - Util.strWidth(startStr));
 				backArr[i] = startStr + sp1 /*ここまでx*/ + frontArr[i];
-				console.log('p3');
 			} 
 			else{
 				//文字列前

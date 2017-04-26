@@ -50,7 +50,6 @@ export default class MltBrowser extends Vue {
 	}
 	state:any;
 	sendAA(aa:string){
-		console.log(aa);
 		IpcController.sendAA(aa);
 	}
 	constructor(){
@@ -62,7 +61,6 @@ export default class MltBrowser extends Vue {
 		for(let i=0;i<aa.length;i++){
 			this.width=Math.max(this.width,aa[i].scrollWidth);
 		}
-		console.log(aa,this.width);
 		aas.animate({
 			scrollTop: 0
 		},200);

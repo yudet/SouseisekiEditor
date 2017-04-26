@@ -42,7 +42,7 @@ export default class TabsGroup extends Base{
 	save(){
 		let tabs:Array<any>=[];
 		for(let i in this.lowers){
-			console.log(this.lowers);
+			// console.log(this.lowers);
 			if(!!this.lowers[i].path){
 				tabs[i]={path:this.lowers[i].path};
 			}
@@ -59,7 +59,6 @@ export default class TabsGroup extends Base{
 					if(!!(tabs as Array<any>)[i]){
 						path=(tabs as Array<any>)[i].path;
 					}
-					console.log(path);
 					lowers[i]=FileInterpreterFactory.get(path).getTab();
 				}
 			}

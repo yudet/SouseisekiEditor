@@ -73,7 +73,6 @@ export default class AaEditable extends Vue {
 		}
 		this.top=(e.target as Element).scrollTop;
 		this.left=(e.target as Element).scrollLeft;
-		console.log(this.top,this.left);
 		if(f){
 			this.$forceUpdate();
 		}

@@ -7,7 +7,7 @@ div.page-and-tabgroup.d-flex.flex-column.align-items-stretch
 			div.center 
 				span(v-if='tab.isEdited') +
 				| {{ tab.name }}
-		a.p-2.tab.icon-tab.center(@click='add',v-if='tg.enableAddTab')
+		a.p-2.tab.icon-tab.center(@click='add',v-if='tg.enableAddTab',v-shortkey='')
 			i.fa.fa-plus-circle
 
 	.p-2.tabs-content.d-flex.flex-column.align-self-stretch.justify-content-end

@@ -218,7 +218,6 @@ export default class Util {
 			let buf:Buffer=iconv.encode(c,'Shift_JIS');
 			if(buf[0] != 63 || c == '?'){
 				a[c]=Util.strWidth(c);
-				console.log(c,Util.strWidth(c),i.toString(16));
 			}
 		}
 		fs.writeFile('./src/test/sjis.json',JSON.stringify(a));

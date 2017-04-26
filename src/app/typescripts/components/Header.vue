@@ -35,22 +35,6 @@ import Util from '../util';
 import Dialogs from '../dialog';
 import ConfigManager from '../config'
 
-let shortkeys:any={
-	'openFile':['ctrl','o'],
-	'saveFile':['ctrl','s'],
-	'exportFile':['ctrl','e'],
-	'startMltBrowser':['ctrl','h']
-};
-
-
-storage.get('shortkeys',(err:any,data:any)=>{
-	if (Object.keys(data).length === 0) {
-		storage.set('shortkeys',shortkeys,(err:any)=>{
-		});
-	} else {
-		shortkeys=data;
-	}
-});
 @Component({
 	props:{
 		state:null
@@ -79,7 +63,7 @@ export default class Header extends Vue {
 		localforage.setItem('highlight',this.state.isHighlight);
 	}
 	get shortkeys():any{
-		return shortkeys;
+		return this.state.shortkeys;
 	}
 }
 </script>
