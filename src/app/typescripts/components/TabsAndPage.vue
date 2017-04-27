@@ -7,7 +7,9 @@ div.page-and-tabgroup.d-flex.flex-column.align-items-stretch
 			div.center 
 				span(v-if='tab.isEdited') +
 				| {{ tab.name }}
-		a.p-2.tab.icon-tab.center(@click='add',v-if='tg.enableAddTab')
+		a(v-shortkey='state.shortkeys.nextTab',@shortkey='nextTab')
+		a(v-shortkey='state.shortkeys.prevTab',@shortkey='prevTab')
+		a.p-2.tab.icon-tab.center(@click='add',v-if='tg.enableAddTab',v-shortkey='state.shortkeys.addTab',@shortkey='add')
 			i.fa.fa-plus-circle
 
 	.p-2.tabs-content.d-flex.flex-column.align-self-stretch.justify-content-end
@@ -33,6 +35,7 @@ import TabsGroup from '../tabsgroup';
 import Tab from '../tab';
 import Scene from '../scene';
 import Layer from '../layer';
+import State from '../state';
 import {FileInterpreter,MltFileInterpreter,FileInterpreterFactory} from '../file';
 import IpcController from '../ipcController';
 
@@ -57,6 +60,16 @@ export default class TabsAndPage extends Vue {
 	}
 	set tabs(t:Array<Tab>){
 		this.tg.lowers=t;
+	}
+	nextTab(){
+		if(this.tg.index+1<this.tg.lowers.length){
+			this.tg.index++;
+		}
+	}
+	prevTab(){
+		if(this.tg.index-1>=0){
+			this.tg.index--;
+		}
 	}
 	selectTab(m:boolean,index:number):void{
 		if(m){this.tg.index=index}

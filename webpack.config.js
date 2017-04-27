@@ -43,7 +43,10 @@ module.exports = {
 		}, {
 			test: /\.(otf|eot|svg|ttf|woff|woff2)(\?.+)?$/,
 			loader: 'url-loader',
-		}, ],
+		}, {
+			test: /\.json5$/,
+			loader: 'json5-loader',
+		},],
 	},
 
 	resolve: {
