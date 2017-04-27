@@ -29,7 +29,7 @@ import * as localforage from 'localforage';
 import {ipcRenderer} from 'electron';
 import * as iconv from 'iconv-lite';
 import * as path from 'path';
-import * as storage from 'electron-json-storage';
+import * as settings from 'electron-settings';
 
 import Util from '../util';
 import Dialogs from '../dialog';

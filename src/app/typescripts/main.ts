@@ -45,6 +45,7 @@ Vue.component('tree-view',TreeView);
 Vue.component('filter-select',FilterSelect);
 
 let vm:Vue;
+Vue.use(require('vue-shortkey'))
 i18next.init({
 	lng: 'ja',
 	resources: {
@@ -52,7 +53,6 @@ i18next.init({
 		ja: ja_JP,
 	}
 });
-Vue.use(require('vue-shortkey'))
 Vue.mixin({
 	methods:{
 		t: (str) => {

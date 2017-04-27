@@ -8,35 +8,31 @@ div.app.d-flex.flex-column
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import * as localforage from 'localforage';
-import * as storage from 'electron-json-storage';
 import Dialogs from '../dialog';
 import TabsGroup from '../tabsgroup';
 import Tab from '../tab';
 import {FileInterpreter,MltFileInterpreter,FileInterpreterFactory} from '../file';
+import * as settings from 'electron-settings';
 
 
-let shortkeys:any={
-		'openFile':['ctrl','o'],
-		'saveFile':['ctrl','s'],
-		'exportFile':['ctrl','e'],
-		'startMltBrowser':['ctrl','h']
-};
-
-
-storage.get('shortkeys',(err:any,data:any)=>{
-	if (Object.keys(data).length === 0) {
-			storage.set('shortkeys',shortkeys,(err:any)=>{
-			});
-	} else {
-		shortkeys=data;
-	}
-});
+ 
 class State{
 	constructor(){
 		//localforage.getItem('highlight').then((highlight:any)=>{
 		//	this.isHighlight=highlight=='true';
 		//});
 		//this.tg.load();
+		let shortkeys:any={
+			openFile:['ctrl','o'],
+			saveFile:['ctrl','s'],
+			exportFile:['ctrl','e'],
+			startMltBrowser:['ctrl','h']
+		};
+
+		if(settings.has('shortkeys')){
+			settings.set('shortkeys', shortkeys);
+		}
+		this.shortkeys=settings.get('shortkeys');
 	}
 	createTabFromFile(isOpen:boolean){
 		const f:string[]=isOpen ? Dialogs.openFile() : Dialogs.importFile();
@@ -71,9 +67,7 @@ class State{
 	}
 	tg:TabsGroup=new TabsGroup();
 	isHighlight:boolean=true;
-	get shortkeys():any{
-		return shortkeys;
-	}
+	shortkeys:any
 }
 @Component({
 	props:{
