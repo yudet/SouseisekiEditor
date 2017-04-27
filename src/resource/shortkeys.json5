@@ -5,6 +5,17 @@
 	startMltBrowser:["ctrl","h"],
 
 	addTab:["ctrl","t"],
+	closeTab:["shift","ctrl","t"],
 	nextTab:["ctrl","tab"],
 	prevTab:["shift","ctrl","tab"],
+
+	addScene:["ctrl","n"],
+	closeScene:["shift","ctrl","n"],
+	nextScene:["ctrl","arrowright"],
+	prevScene:["ctrl","arrowleft"],
+
+	addLayer:["ctrl","l"],
+	closeLayer:["shift","ctrl","l"],
+	nextLayer:["ctrl","arrowdown"],
+	prevLayer:["ctrl","arrowup"],
 }

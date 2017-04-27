@@ -2,7 +2,7 @@
 div.page-and-tabgroup.d-flex.flex-column.align-items-stretch
 	.d-flex.flex-row.tabs
 		div.p-2.tab(v-for='(tab,index) in tg.lowers',@click='selectTab(!$event.target.matches("a.tab-close"),index)',:class='{active: index===tg.index}')
-			a.tab-close(@click='close(index)')
+			a.tab-close(@click='close(index)',v-shortkey='state.shortkeys.closeTab',@shortkey='close(tg.index)')
 				i.fa.fa-times-circle
 			div.center 
 				span(v-if='tab.isEdited') +
@@ -17,13 +17,15 @@ div.page-and-tabgroup.d-flex.flex-column.align-items-stretch
 		ul.p-2.scenes.nav.align-items-center
 			li.scene.nav-item.align-items-center(v-for='(scene,sIndex) in tab.lowers',@click='selectScene(!$event.target.matches("a.scene-close"),sIndex)')
 				a.nav-link.align-items-stretch(:class='{active: tab.index===sIndex}')
-					a.scene-close(@click='tab.close(sIndex)')
+					a.scene-close(@click='tab.close(sIndex)',v-shortkey='state.shortkeys.closeScene',@shortkey='tab.close(tab.index)')
 						i.fa.fa-times-circle
 					div.center(@click='tab.index=sIndex') {{ sIndex }}:
 						span(contenteditable='true',@blur='scene.name=$event.target.textContent;$event.target.textContent=scene.name') {{ scene.name }}
-			li.scene.icon-scene.align-items-center.center(@click='tab.add()')
+			li.scene.icon-scene.align-items-center.center(@click='tab.add()',v-shortkey='state.shortkeys.addScene',@shortkey='tab.add()')
 				a.nav-link
 					i.fa.fa-plus-circle
+		a(v-shortkey='state.shortkeys.nextScene',@shortkey='nextScene')
+		a(v-shortkey='state.shortkeys.prevScene',@shortkey='prevScene')
 </template>
 
 <script lang="ts">
@@ -68,6 +70,16 @@ export default class TabsAndPage extends Vue {
 	}
 	prevTab(){
 		if(this.tg.index-1>=0){
+			this.tg.index--;
+		}
+	}
+	nextScene(){
+		if(this.tab.index+1<this.tab.lowers.length){
+			this.tab.index++;
+		}
+	}
+	prevScene(){
+		if(this.tab.index-1>=0){
 			this.tg.index--;
 		}
 	}

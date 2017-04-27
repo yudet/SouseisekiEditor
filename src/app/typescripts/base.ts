@@ -14,7 +14,7 @@ export default class Base {
 	}
 
 	get lower():any{
-		return this.lowers[this.index];
+		return (this.lowers[this.index]||this.lowers[0]);
 	}
 
 	swap(n1:number,n2:number){
