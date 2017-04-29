@@ -13,6 +13,8 @@ export abstract class WindowFactory {
 	public argForBW:any={ width: 800, height: 600 };
 	public ids:Array<number>=[];
 	public create():Electron.BrowserWindow{
+		this.isDebug=process.env.DEBUG=='true';
+		console.log(this.isDebug);
 		let w:Electron.BrowserWindow=new BrowserWindow(this.argForBW);
 		w.loadURL(`file://${path.join(__dirname,'..','..',this.filePath)}`);
 		if(this.isDebug){
@@ -24,7 +26,6 @@ export abstract class WindowFactory {
 			});
 		}else{
 			w.on('close', ()=> {
-				// process.exit();
 				w.hide();
 			});
 		}

@@ -9,6 +9,8 @@ div.layers-and-editable.d-flex.flex-row.align-items-stretch
 		.footer.small(v-if='!(isComposed || isAdjusting)') 
 			span.info-part(:title='t("bytes-number")',data-toggle='tooltip') B:
 				| {{lbytes}}
+		a(v-shortkey='state.shortkeys.nextLayer',@shortkey='layerNext')
+		a(v-shortkey='state.shortkeys.prevLayer',@shortkey='layerPrev')
 
 	.p-0.flex-column.tool-buttons
 		.layer.icon-layer.align-items-center.center.tool-button
@@ -18,7 +20,7 @@ div.layers-and-editable.d-flex.flex-row.align-items-stretch
 			a.nav-link(:class='{disable: !scene.canDown()}',@click='layerDown()')
 				i.fa.fa-angle-down.p-2
 		.layer.icon-layer.align-items-center.center.tool-button
-			a.nav-link(@click='scene.add();scene.index++;')
+			a.nav-link(@click='scene.add();scene.index++;',v-shortkey='state.shortkeys.addLayer',@shortkey='scene.add();scene.index++;')
 				i.fa.fa-plus-circle
 		.layer.icon-layer.align-items-center.center.tool-button
 			a.nav-link(@click='fixFilters')
@@ -30,7 +32,6 @@ div.layers-and-editable.d-flex.flex-row.align-items-stretch
 				a.layer-close(@click='scene.close(lIndex)')
 					i.fa.fa-times-circle
 				div.center {{ lIndex }}
-					// span(contenteditable='true',@blur='layer.name=$event.target.textContent;$event.target.textContent=layer.name') {{ layer.name }}
 		li.layer.nav-item.nav-item-sm.align-items-center.center(@click='composing')
 			a.nav-link(:class='{active: isComposed}')
 				| {{t('scene-result')}}
@@ -97,6 +98,21 @@ export default class LayerAndEditable extends Vue {
 	}
 	layerUp(){
 		this.scene.up();
+	}
+	layerNext(){
+		if(this.scene.index==this.scene.lowers.length-1){
+			this.isComposed=true;
+		}else{
+			this.scene.next();
+		}
+	}
+	layerPrev(){
+		if(this.isComposed){
+			this.scene.index=this.scene.lowers.length-1;
+			this.isComposed=false;
+		}else{
+			this.scene.prev();
+		}
 	}
 	get aaEditableStyle():string{
 		return `padding-left:${this.scene.lower.offset.x}px!important;

@@ -15,7 +15,7 @@
 				button.btn.btn-sm.align-middle(@click='startMltBrowser',:title='t("mlt-browser")',data-toggle='tooltip',v-shortkey='shortkeys.startMltBrowser',@shortkey='startMltBrowser')
 					i.fa.fa-film
 			.btn-group
-				button.btn.btn-sm.align-middle(@click='toggleHighlight',:title='t("highlight-toggle")',data-toggle='tooltip')
+				button.btn.btn-sm.align-middle(@click='toggleHighlight',:title='t("highlight-toggle")',data-toggle='tooltip',v-shortkey='shortkeys.toggleHighlight',@shortkey='toggleHighlight')
 					i.fa.fa-paint-brush(:class='{ "text-muted":!state.isHighlight }')
 
 </template>

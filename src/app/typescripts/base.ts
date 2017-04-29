@@ -51,13 +51,27 @@ export default class Base {
 		this.lowers.splice(n || null,0,l || null);
 	}
 
+	next(){
+		if(this.index+1<this.lowers.length){
+			this.index++;
+		}
+	}
+
+	prev(){
+		if(this.index-1>=0){
+			this.index--;
+		}
+	}
+
 	close(index: number):void{
 		if(this.lowers.length===1){
 			return ;
 		}
-		if(this.index==index){
+		if(this.index!=0){
+			this.index=0;
+		}else{
+			this.index=1;
 		}
-		this.index=0;
 		this.lowers.splice(index,1);
 		return ;
 	}

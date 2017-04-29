@@ -4,7 +4,7 @@
   "description": "HTML5 Ascii Art Editor",
   "private": true,
   "scripts": {
-    "build": "tsc;webpack --progress --config release.webpack.config.js",
+    "build": "tsc;webpack --progress --config release.webpack.config.js;node build.js",
     "electron-packager": "node build.js",
     "tsc": "tsc -w",
     "webpack": "webpack -w",

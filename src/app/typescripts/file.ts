@@ -49,7 +49,7 @@ export abstract class SjisFileInterpreter extends FileInterpreter{
 export class MltFileInterpreter extends SjisFileInterpreter{
 	getTab():Tab{
 		let i:number=0,scenes:Scene[]=new Array();
-		for(let st of this.read().split(/[\n\r]\[SPLIT\][\n\r]/g)){
+		for(let st of this.read().split(/(?:\r\n|\r|\n)\[SPLIT\](?:\r\n|\r|\n)/g)){
 			let s=new Scene();
 			s.text=st.replace(/&#(x[0-9A-F]+);/g,function (match:string,p1:string):string{
 				return String.fromCharCode(parseInt('0'+p1));
@@ -63,16 +63,16 @@ export class MltFileInterpreter extends SjisFileInterpreter{
 	save(t:Tab,p:string){
 		const strBufs:string[]=[];
 		for(let i in t.lowers){
-			strBufs.push(Util.convertUtf8ToSjis(t.lowers[i].composed));
+			strBufs.push(Util.convertUtf8ToSjis(t.lowers[i].composed).replace(/\r\n|\r|\n/g,'\r\n'));
 		}
-		fs.writeFile(p,iconv.encode(strBufs.join('\n[SPLIT]\n'),this.encoding));
+		fs.writeFileSync(p,iconv.encode(strBufs.join('\r\n[SPLIT]\r\n'),this.encoding));
 	}
 }
 
 export class AstFileInterpreter extends SjisFileInterpreter{
 	getTab():Tab{
 		let i:number=0,hs:string[]=this.getHeader(this.read()),scenes:Scene[]=new Array();
-		for(let st of this.read().split(/[\n\r]?\[AA\]\[[^\]]*\][\n\r]/g)){
+		for(let st of this.read().split(/(?:\r\n|\r|\n)?\[AA\]\[[^\]]*\](?:\r\n|\r|\n)/g)){
 			if(i!=0){
 				let s=new Scene();
 				s.text=st.replace(/&#(x[0-9A-F]+);/g,function (match:string,p1:string):string{
@@ -87,7 +87,7 @@ export class AstFileInterpreter extends SjisFileInterpreter{
 	}
 
 	getHeader(str:string):string[]{
-		let a:string[]=str.match(/\[AA\]\[([^\]])*\][\n\r]/g);
+		let a:string[]=str.match(/\[AA\]\[([^\]])*\](\r\n|\n|\r)/g);
 		let names:string[]=[];
 		for(let i=0;i<a.length;i++){
 			names.push(a[i].slice(5,-2));
@@ -96,11 +96,12 @@ export class AstFileInterpreter extends SjisFileInterpreter{
 	}
 
 	save(t:Tab,p:string){
-		const strBufs:string[]=[];
+		let strBuf:string='';
 		for(let i in t.lowers){
-			strBufs.push(Util.convertUtf8ToSjis(t.lowers[i].composed));
+			strBuf+='[AA]['+t.lowers[i].name+']\r\n'+Util.convertUtf8ToSjis(t.lowers[i].composed)+'\r\n';
 		}
-		fs.writeFile(p,iconv.encode(strBufs.join('\n[SPLIT]\n'),this.encoding));
+		strBuf=strBuf.replace(/\r\n|\r|\n/g,'\r\n');
+		fs.writeFileSync(p,iconv.encode(strBuf,this.encoding));
 	}
 }
 
@@ -131,6 +132,6 @@ export class XaaFileInterpreter extends FileInterpreter{
 
 	save(t:Tab,p:string){
 		t.setLastSaved();
-		fs.writeFile(p,JSON.stringify(t));
+		fs.writeFileSync(p,JSON.stringify(t));
 	}
 }

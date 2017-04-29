@@ -154,20 +154,49 @@ export default class Util {
 				if (0 > i) break;
 			}
 		}
+		// console.log(zen,han,str.replace(/ /g,'H').replace(/　/g,'Z'));
 		return str;
 	}
 
-	public static generateSpaceNoUni (d:number):string {
-		var zen = Math.ceil(d / 11),
-			zenhan = 0,
-			han;
-		while (zen * 11 + zenhan * 16 > d) {
-			zen = zen - 3;
-			zenhan = zenhan + 2;
+	public static generateSpaceNoUniNums (d:number):{zen:number,han:number} {
+		let zen:number = Math.floor(d / 11),
+			han:number = 0,
+			mod = d%11;
+
+		if(mod>5){
+			zen+=1;
+		}else if(mod>0){
+			han+=1;
 		}
-		zen += zenhan;
-		han = zenhan;
-		return Util.generateStrZenHan(zen, han);
+
+		if(zen*11+han*5==d){
+			return {zen:zen,han:han};
+		}
+
+		do{
+			zen-=1;
+			han+=2;
+		}while(d!=zen*11+han*5)
+
+		if(zen<=han){
+			return {zen:0,han:0};
+		}
+
+		return {zen:zen, han:han};
+
+	}
+
+	public static generateSpaceNoUni (d:number):string {
+		if(d==0){
+			return '';
+		}
+		const nums:{zen:number,han:number}=Util.generateSpaceNoUniNums(d);
+		return Util.generateStrZenHan(nums.zen,nums.han);
+	}
+
+	public static generateSpaceNoUniWidth (d:number):number {
+		const nums:{zen:number,han:number}=Util.generateSpaceNoUniNums(d);
+		return Math.abs(nums.zen)*11+ Math.abs(nums.han)*5;
 	}
 
 	/**
@@ -180,16 +209,19 @@ export default class Util {
 		var zen:number, han:number, mod:number;
 		if (d <= 0 || d % 1 != 0) {
 			return '';
-		} else if (d==10){
-			return Util.space(10);
-		} else if (d >= 320) {
+		} else if (d==11){
+			return Util.space(11);
+		} else if (d==5){
+			return Util.space(5);
+		} else if (Util.generateSpaceNoUniWidth(d)==d) {
 			return Util.generateSpaceNoUni(d);
 		} else {
 			mod = d % 11;
+			let r;
 			switch (mod) {
-				case 10:
 				case 0:
-					return Util.generateSpaceNoUni(d);
+					r=Util.generateSpaceNoUni(d)
+					return r;
 				default:
 					return Util.generateSpaceNoUni(d - mod) + Util.space(mod);
 			}
@@ -220,6 +252,7 @@ export default class Util {
 				a[c]=Util.strWidth(c);
 			}
 		}
+		
 		fs.writeFile('./src/test/sjis.json',JSON.stringify(a));
 	}
 

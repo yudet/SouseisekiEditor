@@ -27,7 +27,11 @@ describe('file',()=>{
 describe('filter',()=>{
 	let stub = sinon.stub(Util, 'strWidth',
 			(str:string)=>{
-				return sjis[str];
+				let r=0;
+				for(let s of str){
+					r+=sjis[s];
+				}
+				return r;
 			})
 	it('simple-box',()=>{
 		console.log(filters.keys())
@@ -36,10 +40,14 @@ describe('filter',()=>{
 describe('util',()=>{
 	it('generate-space',()=>{
 		let r:string=''
-		for(let i=0;i<320;i++){
-			r=Util.generateSpace(i)
-			if(r.match(/$ /)||r.match(/\ \ /)){
-				console.log('"'+r+'"',i);
+		for(let i=0;i<500;i++){
+			r=Util.generateSpace(i);
+			if(r.match(/$ /)||r.match(/\ \ /)||i!=Util.strWidth(r)){
+				console.log('"'+r.replace(/ /g,'H').replace(/　/g,'Z').replace(/[^HZ]/g,(match)=>{return Util.strWidth(match)+''})+'"'
+					,i
+					,i-i%11
+					,i%11
+					,Util.strWidth(r));
 			}
 		}
 	});

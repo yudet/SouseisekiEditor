@@ -19,7 +19,6 @@ export default class MainState{
 			settings.set('shortkeys', shortkeys);
 		}
 		this.shortkeys=settings.get('shortkeys');
-		console.log(this.shortkeys);
 	}
 	createTabFromFile(isOpen:boolean){
 		const f:string[]=isOpen ? Dialogs.openFile() : Dialogs.importFile();
@@ -46,7 +45,9 @@ export default class MainState{
 	saveFile(){
 		const tab = this.writeTabToFile(true);
 		if(tab){
-			this.tg.lower=tab;
+			this.tg.lower.path=tab.path;
+			this.tg.lower.name=tab.name;
+			console.log(this.tg.lower.path);
 		}
 	}
 	exportFile(){

@@ -18,4 +18,6 @@
 	closeLayer:["shift","ctrl","l"],
 	nextLayer:["ctrl","arrowdown"],
 	prevLayer:["ctrl","arrowup"],
+
+	toggleHighlight:["shift","ctrl","h"],
 }

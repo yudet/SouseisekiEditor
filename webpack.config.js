@@ -83,11 +83,5 @@ module.exports = {
 	],
 	target: 'electron-renderer',
 
-
 	devtool: 'source-map',
-
-	devServer: {
-		contentBase: path.resolve(__dirname, 'dist'),
-		port: 3000
-	}
 };

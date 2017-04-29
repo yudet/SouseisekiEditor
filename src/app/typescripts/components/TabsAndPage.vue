@@ -7,8 +7,8 @@ div.page-and-tabgroup.d-flex.flex-column.align-items-stretch
 			div.center 
 				span(v-if='tab.isEdited') +
 				| {{ tab.name }}
-		a(v-shortkey='state.shortkeys.nextTab',@shortkey='nextTab')
-		a(v-shortkey='state.shortkeys.prevTab',@shortkey='prevTab')
+		a(v-shortkey='state.shortkeys.nextTab',@shortkey='tg.next()')
+		a(v-shortkey='state.shortkeys.prevTab',@shortkey='tg.prev()')
 		a.p-2.tab.icon-tab.center(@click='add',v-if='tg.enableAddTab',v-shortkey='state.shortkeys.addTab',@shortkey='add')
 			i.fa.fa-plus-circle
 
@@ -24,8 +24,8 @@ div.page-and-tabgroup.d-flex.flex-column.align-items-stretch
 			li.scene.icon-scene.align-items-center.center(@click='tab.add()',v-shortkey='state.shortkeys.addScene',@shortkey='tab.add()')
 				a.nav-link
 					i.fa.fa-plus-circle
-		a(v-shortkey='state.shortkeys.nextScene',@shortkey='nextScene')
-		a(v-shortkey='state.shortkeys.prevScene',@shortkey='prevScene')
+		a(v-shortkey='state.shortkeys.nextScene',@shortkey='tab.next()')
+		a(v-shortkey='state.shortkeys.prevScene',@shortkey='tab.prev()')
 </template>
 
 <script lang="ts">
@@ -74,14 +74,10 @@ export default class TabsAndPage extends Vue {
 		}
 	}
 	nextScene(){
-		if(this.tab.index+1<this.tab.lowers.length){
-			this.tab.index++;
-		}
+		this.tab.next();
 	}
 	prevScene(){
-		if(this.tab.index-1>=0){
-			this.tg.index--;
-		}
+		this.tab.prev();
 	}
 	selectTab(m:boolean,index:number):void{
 		if(m){this.tg.index=index}

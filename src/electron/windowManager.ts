@@ -85,7 +85,6 @@ export default class WindowManager{
 	}
 	private onRequestCreateWindow:Function=(ev:Electron.IpcMainEvent, windowName:string)=> {
 		const wf:WindowFactory=this.windowFactories.get(windowName);
-			console.log(windowName);
 		if(wf!=null && !(wf.isSingle && !wf.isClosed)){
 			const w:Electron.BrowserWindow = wf.create();
 			this.createWindow(w,wf)
