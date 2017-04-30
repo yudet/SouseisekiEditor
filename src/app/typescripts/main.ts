@@ -12,6 +12,7 @@ import MltView from './components/MltView.vue';
 import TreeView from './components/TreeView.vue';
 import FilterSelect from './components/FilterSelect.vue';
 import Tab from './tab.ts';
+const kuroshiro:any=require('kuroshiro');
 
 let en_US = require('json-loader!../../resource/lang/en_US.json');
 let ja_JP = require('json-loader!../../resource/lang/ja_JP.json');
@@ -71,4 +72,3 @@ if($('#app').length){
 		render:(h)=>h(MltBrowser)
 	});
 }
-

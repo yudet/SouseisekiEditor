@@ -14,9 +14,12 @@ import 'mocha';
 const sjis:{[key:string]:number} = require('../../src/test/sjis.json');
 
 describe('file',()=>{
-	it('mlt',()=>{
+	it('convertUtf8ToSjis',()=>{
 		const str:String=Util.convertUtf8ToSjis('あ'+String.fromCharCode(0x2003)+'a?');
 		chai.expect(str).to.eql('あ&#x2003;a?');
+	});
+	it('convertSjisToUtf8',()=>{
+		chai.expect(Util.convertSjisToUtf8('&#9700;')).to.eql('あ'+String.fromCharCode(0x2003)+'a?');
 	});
 	it('ast',()=>{
 		const interpreter:AstFileInterpreter=new AstFileInterpreter('./');
