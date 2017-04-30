@@ -119,6 +119,7 @@ export class XaaFileInterpreter extends FileInterpreter{
 				l.text=layer.text;
 				l.name=layer.name;
 				l.offset=layer.offset;
+				l.filters=layer.filters;
 				s.lowers[j]=l;
 				j++;
 			}

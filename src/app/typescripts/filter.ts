@@ -31,7 +31,6 @@ export class BoxAAFilter extends AAFilter{
 	filter(str:string):string{
 		
 		let strs:string[]=str.split(/\r\n|\r|\n/),result:string[]=new Array();
-		console.log(strs);
 		let maxWidth:number=Util.strWidth(str);
 		const nLines:number=Math.floor(maxWidth / Util.strWidth(this.lines.uc) + 1);
 		maxWidth=nLines*Util.strWidth(this.lines.uc);

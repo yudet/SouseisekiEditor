@@ -62,9 +62,10 @@ export class YaruyomiSupplier extends AASupplier{
 }
 
 export abstract class Mlt {
-	protected title:string;
+	public title:string;
 	protected version:string;
 	protected isNew:boolean;
+	public isDirectory:boolean;
 }
 
 export abstract class FileMlt extends Mlt {
@@ -80,8 +81,8 @@ export abstract class FileMlt extends Mlt {
 	};
 }
 
-export abstract class DirectoryMlt extends Mlt {
-	protected contents:Array<Mlt>;
+export class DirectoryMlt extends Mlt {
+	public contents:Array<Mlt>=[];
 	public isOpen:boolean=false;
 	public isDirectory:boolean=true;
 }
