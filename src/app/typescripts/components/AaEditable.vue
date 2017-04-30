@@ -44,10 +44,10 @@ export default class AaEditable extends Vue {
 	state:any;
 	editable:boolean;
 	get scene():Scene{
-		return this.state.tg.lower.lower as Scene;
+		return this.state.scene as Scene;
 	}
 	get layer():Layer{
-		return this.scene.lower as Layer;
+		return this.state.layer as Layer;
 	}
 	get composed():string{
 		if(!this.editable){
@@ -64,6 +64,7 @@ export default class AaEditable extends Vue {
 		return this.layer.text/* .replace(/\n/g,'<br>') */;
 	}
 	set text(s:string){
+		this.state.change();
 		this.layer.text=s;
 	}
 	get html():string{

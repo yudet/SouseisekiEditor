@@ -6,13 +6,7 @@ import * as hash from 'object-hash';
 export default class Tab extends Base{
 	lowers: Array<Scene>;
 	path:string;
-	lastSaved:string;
-	get isEdited():boolean{
-		return this.lastSaved!==hash(this.lowers);
-	}
-	setLastSaved(){
-		this.lastSaved=hash(this.lowers);
-	}
+	isEdited:boolean=false;
 	constructor(o: any={}){
 		super();
 		if(!o.name){
@@ -27,7 +21,6 @@ export default class Tab extends Base{
 			this.lowers=o.scenes;
 		}
 		this.path=o.path||'';
-		this.setLastSaved();
 	}
 
 	add(s?:Scene){

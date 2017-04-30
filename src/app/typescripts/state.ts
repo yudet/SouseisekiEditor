@@ -60,11 +60,20 @@ export default class MainState{
 	exportFile(){
 		this.writeTabToFile(false);
 	}
-	changed(){
-
+	change(){
+		this.tab.isEdited=true;
 	}
 	isComposed:boolean=false;
 	tg:TabsGroup=new TabsGroup();
+	get tab():Tab{
+		return this.tg.lower;
+	}
+	get scene():Scene{
+		return this.tab.lower;
+	}
+	get layer():Layer{
+		return this.scene.lower;
+	}
 	isHighlight:boolean=true;
 	shortkeys:any;
 }

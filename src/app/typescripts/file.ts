@@ -132,7 +132,7 @@ export class XaaFileInterpreter extends FileInterpreter{
 	}
 
 	save(t:Tab,p:string){
-		t.setLastSaved();
+		t.isEdited=false;
 		fs.writeFileSync(p,JSON.stringify(t));
 	}
 }
