@@ -10,10 +10,10 @@
 				tree-view(:list='searchDir',:state='state',@dirOpen='dirOpen',v-if='isSearch&&!isLoading')
 				.loading
 					i.fa.fa-cog.fa-spin(v-if='searchStr.length==0&&isLoading')
-			.search.input-group.input-group-sm.form-control.form-control-sm
-				input.p-0.form-control.form-control-sm(v-model='searchStr')
+			form.search.input-group.input-group-sm.form-control.form-control-sm(@submit.prevent.stop='search()')
+				input.p-0.form-control.form-control-sm(v-model='searchStr',@keyup.enter='search()')
 				span.p-0.input-group-btn.form-control-sm
-					button.btn.btn-secondary.btn-sm(@click='search') {{t('search-start')}}
+					button.btn.btn-secondary.btn-sm(@click='search()') {{t('search-start')}}
 		mlt-view.mlt-view.col-18.p-0.align-items-stretch(:state='state')
 </template>
 
@@ -119,29 +119,7 @@ export default class MltBrowser extends Vue {
 	}
 
 	search(){
-		if(this.searchStr==null){
-			return;
-		}
-		let r:DirectoryMlt=new DirectoryMlt();
-		let choose=(l:DirectoryMlt)=>{
-			let t:boolean=false;
-			for(let i in l.contents){
-				if(l.contents[i].title.match(this.searchStr)){
-					t=true;
-					r.contents.push(l.contents[i]);
-				} else if(l.contents[i].isDirectory){
-					if(choose(l.contents[i] as DirectoryMlt).contains){
-						t=true;
-					}
-				}
-			}
-			return {contains:t,dirMlt:r}
-		}
-		let dm:DirectoryMlt=new DirectoryMlt();
-		dm.contents=this.aaList;
-		console.log(this.aaList)
-		let d=choose(dm);
-		console.log(d);
+		const d:{contains:boolean,dirMlt:DirectoryMlt}=this.searchSimple(this.searchStr);
 		if(d.contains){
 			this.isSearch=true;
 			this.searchDir=d.dirMlt.contents;
@@ -150,6 +128,40 @@ export default class MltBrowser extends Vue {
 			this.searchDir=[];
 			this.$forceUpdate();
 		}
+	}
+	searchSimple(s:string):{contains:boolean,dirMlt:DirectoryMlt}{
+		let r:DirectoryMlt=new DirectoryMlt(),searchStrs:Array<string>=s.split(/ |　/);
+		let choose=(l:DirectoryMlt,path:string[])=>{
+			let t:boolean=false;
+			for(let i in l.contents){
+				let fPath:boolean=true;
+				let fFileName:boolean=false;
+
+				//パスに含まれているか
+				for(let searchStr of searchStrs){
+					fPath=fPath && !!path.concat([l.contents[i].title]).join('/').match(searchStr);
+				}
+
+				//少なくともファイル名に一つ含まれているか
+				for(let searchStr of searchStrs){
+					fFileName=fFileName || !!l.contents[i].title.match(searchStr);
+				}
+				if(fPath&&fFileName){
+					t=true;
+					r.contents.push(l.contents[i]);
+				}
+				if(l.contents[i].isDirectory){
+					if(choose(l.contents[i] as DirectoryMlt,path.concat([l.contents[i].title])).contains){
+						t=true;
+					}
+				}
+			}
+			return {contains:t,dirMlt:r}
+		}
+		let dm:DirectoryMlt=new DirectoryMlt();
+		dm.contents=this.aaList;
+		let d:{contains:boolean,dirMlt:DirectoryMlt}=choose(dm,[]);
+		return d;
 	}
 }
 
