@@ -50,10 +50,6 @@ export default class AaEditable extends Vue {
 		return this.state.layer as Layer;
 	}
 	get composed():string{
-		if(!this.editable){
-			console.log('n');
-			return '';
-		}
 		return this.scene.composed;
 	}
 	top:number=0;
