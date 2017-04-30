@@ -6,7 +6,7 @@ packager({
 	dir: './',
 	out: './release',
 	name: 'Souseiseki Editor',
-	platform: platform,
+	platform: platform||'all',
 	arch: 'x64',
 
 	overwrite: true,
