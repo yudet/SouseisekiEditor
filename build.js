@@ -8,6 +8,7 @@ packager({
 	name: 'Souseiseki Editor',
 	platform: platform||'all',
 	arch: 'x64',
+	icon: './icon/icon',
 
 	overwrite: true,
 	asar: true,
