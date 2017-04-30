@@ -29,6 +29,9 @@ export default class MainState{
 	}
 	writeTabToFile(isSave:boolean):Tab{
 		const f:string=isSave ? Dialogs.saveFile() : Dialogs.exportFile();
+		return this.writeTabToFileWithPath(f);
+	}
+	writeTabToFileWithPath(f:string):Tab{
 		if(f){
 			let fi:FileInterpreter=FileInterpreterFactory.get(f);
 			fi.save(this.tg.lower,f);
@@ -43,16 +46,24 @@ export default class MainState{
 		this.createTabFromFile(false);
 	}
 	saveFile(){
-		const tab = this.writeTabToFile(true);
+		let tab:Tab;
+		if(this.tg.lower.path.endsWith('.xaa')){
+			tab = this.writeTabToFileWithPath(this.tg.lower.path);
+		}else{
+			tab = this.writeTabToFile(true);
+		}
 		if(tab){
 			this.tg.lower.path=tab.path;
 			this.tg.lower.name=tab.name;
-			console.log(this.tg.lower.path);
 		}
 	}
 	exportFile(){
 		this.writeTabToFile(false);
 	}
+	changed(){
+
+	}
+	isComposed:boolean=false;
 	tg:TabsGroup=new TabsGroup();
 	isHighlight:boolean=true;
 	shortkeys:any;

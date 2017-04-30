@@ -36,17 +36,26 @@ function insertStr(str:string, index:number, insert:string):string {
 }
 @Component({
 	props:{
-		layer:Layer,
 		editable:false,
-		composed:'',
 		state:null
 	},
 })
 export default class AaEditable extends Vue {
-	layer:Layer;
 	state:any;
 	editable:boolean;
-	composed:string;
+	get scene():Scene{
+		return this.state.tg.lower.lower as Scene;
+	}
+	get layer():Layer{
+		return this.scene.lower as Layer;
+	}
+	get composed():string{
+		if(!this.editable){
+			console.log('n');
+			return '';
+		}
+		return this.scene.composed;
+	}
 	top:number=0;
 	left:number=0;
 	changed(e:Event):void{
@@ -58,10 +67,12 @@ export default class AaEditable extends Vue {
 		this.layer.text=s;
 	}
 	get html():string{
-		if(this.editable){
-		return Util.getHighlight(this.text);
+		if(!this.state.isHighlight){
+			return '';
+		}else if(this.editable){
+			return Util.getHighlight(this.text);
 		}else{
-		return Util.getHighlight(this.composed);
+			return Util.getHighlight(this.composed);
 		}
 	}
 	scroll(e:any){
@@ -73,9 +84,6 @@ export default class AaEditable extends Vue {
 		}
 		this.top=(e.target as Element).scrollTop;
 		this.left=(e.target as Element).scrollLeft;
-		if(f){
-			this.$forceUpdate();
-		}
 	}
 }
 </script>

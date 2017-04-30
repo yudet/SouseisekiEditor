@@ -244,7 +244,6 @@ export default class Util {
 	}
 
 	public static convertSjisToUtf8(s:string):string{
-		// console.log(s);
 		return s.replace(/&#(x[0-9A-F]+);/g,(match:string,p1:string)=>{
 			return String.fromCharCode(parseInt('0'+p1));
 		}).replace(/&#([0-9]+);/g,(match:string,p1:string)=>{
