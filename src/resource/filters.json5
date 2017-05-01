@@ -1,0 +1,33 @@
+{
+	"boxes":{
+		"simple-box":{
+			"lines":{
+				"ul":"┌",
+					"uc":"─",
+					"ur":"┐",
+					"ml":"│",
+					"mr":"│",
+					"bl":"└",
+					"bc":"─",
+					"br":"┘"
+			}
+		},
+		"bold-box":{
+			"lines":{
+				"ul":"┏","uc":"━","ur":"┓",
+				"ml":"┃","mr":"┃",
+				"bl":"┗","bc":"━","br":"┛"
+			}
+		},
+		"corner-bold-box":{
+			"lines":{
+				"ul":"┏","uc":"─","ur":"┓",
+				"ml":"│","mr":"│",
+				"bl":"┗","bc":"─","br":"┛"
+			}
+		}
+	},
+	"others":{
+		"str-width":"return Util.strWidth(str)+''"
+	}
+}

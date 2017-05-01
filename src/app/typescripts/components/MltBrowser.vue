@@ -24,7 +24,6 @@ import Component from 'vue-class-component';
 import {t} from 'i18next';
 import '../../styles/style.scss';
 import {AASupplier,YaruyomiSupplier,FileMlt,Mlt,YaruyomiFileMlt,DirectoryMlt} from '../hukutemp.ts';
-const kuroshiro:any=require('kuroshiro');
 
 class State{
 	selectedFileMlt:FileMlt;

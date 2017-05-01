@@ -3,6 +3,7 @@ import Tab from './tab';
 import Scene from './scene';
 import Layer from './layer';
 import Dialogs from './dialog';
+import * as Filter from './filter';
 import {FileInterpreter,MltFileInterpreter,FileInterpreterFactory} from './file';
 
 import * as settings from 'electron-settings';
@@ -19,6 +20,24 @@ export default class MainState{
 			settings.set('shortkeys', shortkeys);
 		}
 		this.shortkeys=settings.get('shortkeys');
+
+		let filters:any=require('../../resource/filters.json5');
+		if(!settings.has('filters')){
+			settings.set('filters', filters);
+		}
+		this.filters=settings.get('filters');
+		console.log(this.filters);
+		for(let name in this.filters.boxes){
+			let b:Filter.BoxAAFilter=new Filter.BoxAAFilter();
+			b.id=name;
+			b.lines=this.filters.boxes[name].lines as Filter.BoxLines;
+			Filter.filters.push(b);
+		}
+		for(let name in this.filters.others){
+			let b:Filter.OtherAAFilter=new Filter.OtherAAFilter(this.filters.others[name]);
+			b.id=name;
+			Filter.filters.push(b);
+		}
 	}
 	createTabFromFile(isOpen:boolean){
 		const f:string[]=isOpen ? Dialogs.openFile() : Dialogs.importFile();
@@ -76,4 +95,5 @@ export default class MainState{
 	}
 	isHighlight:boolean=true;
 	shortkeys:any;
+	filters:any;
 }

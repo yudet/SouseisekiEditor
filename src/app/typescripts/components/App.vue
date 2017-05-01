@@ -18,7 +18,7 @@ import * as settings from 'electron-settings';
 
 @Component({
 	props:{
-		state:new State()
+		state:null
 	}
 })
 export default class App extends Vue {
