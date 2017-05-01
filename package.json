@@ -1,6 +1,6 @@
 {
   "name": "vo-editor",
-  "version": "0.0.1",
+  "version": "0.0.1-alpha",
   "description": "HTML5 Ascii Art Editor",
   "private": true,
   "scripts": {
