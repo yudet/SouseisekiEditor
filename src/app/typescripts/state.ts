@@ -27,15 +27,17 @@ export default class MainState{
 		}
 		this.filters=settings.get('filters');
 		console.log(this.filters);
-		for(let name in this.filters.boxes){
+		for(let id in this.filters.boxes){
 			let b:Filter.BoxAAFilter=new Filter.BoxAAFilter();
-			b.id=name;
-			b.lines=this.filters.boxes[name].lines as Filter.BoxLines;
+			b.id=id;
+			b.name=this.filters.boxes[id].name;
+			b.lines=this.filters.boxes[id].lines as Filter.BoxLines;
 			Filter.filters.push(b);
 		}
-		for(let name in this.filters.others){
-			let b:Filter.OtherAAFilter=new Filter.OtherAAFilter(this.filters.others[name]);
-			b.id=name;
+		for(let id in this.filters.others){
+			let b:Filter.OtherAAFilter=new Filter.OtherAAFilter(this.filters.others[id].func);
+			b.id=id;
+			b.name=this.filters.others[id].name;
 			Filter.filters.push(b);
 		}
 	}

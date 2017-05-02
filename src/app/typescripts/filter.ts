@@ -4,9 +4,7 @@ export class AAFilter{
 	filter(str:string):string{
 		return str;
 	}
-	get name():string{
-		return t('filter-'+this.id);
-	}
+	name:string;
 	id:string;
 	static searchFilter(id:string):AAFilter{
 		return filters.filter((el:any)=>{

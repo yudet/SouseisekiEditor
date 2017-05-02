@@ -10,24 +10,30 @@
 					"bl":"└",
 					"bc":"─",
 					"br":"┘"
-			}
+			},
+			"name":"SimpleFrame"
 		},
 		"bold-box":{
 			"lines":{
 				"ul":"┏","uc":"━","ur":"┓",
 				"ml":"┃","mr":"┃",
 				"bl":"┗","bc":"━","br":"┛"
-			}
+			},
+			"name":"BoldFrame"
 		},
 		"corner-bold-box":{
 			"lines":{
 				"ul":"┏","uc":"─","ur":"┓",
 				"ml":"│","mr":"│",
 				"bl":"┗","bc":"─","br":"┛"
-			}
+			},
+			"name":"CornerBoldFrame"
 		}
 	},
 	"others":{
-		"str-width":"return Util.strWidth(str)+''"
+		"str-width":{
+			"func":"return Util.strWidth(str)+''",
+			"name":"StrWidth"
+		}
 	}
 }
