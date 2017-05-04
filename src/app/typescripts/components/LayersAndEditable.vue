@@ -2,13 +2,11 @@
 <template lang="pug">
 div.layers-and-editable.d-flex.flex-row.align-items-stretch
 	.aa-wrapper.align-self-stretch.d-flex.flex-column
-		aa-editable.p-0.aa.align-self-stretch(:state='state',:editable='!(isComposed || isAdjusting)')
+		aa-editable.p-0.aa.align-self-stretch.h-100(v-model='state.scene.text',v-if='!(isComposed || isAdjusting)',:editable='true',:is-highlight='state.isHighlight',@changed='change',:hasChangeEvent='!state.tab.isEdited')
+		aa-editable.p-0.aa.align-self-stretch.h-100(v-model='state.scene.composed',v-if='isComposed || isAdjusting',:editable='false',:is-highlight='state.isHighlight')
 		.footer.small(v-if='isComposed || isAdjusting') 
 			span.info-part(:title='t("bytes-number")',data-toggle='tooltip') B:
 				| {{bytes}}
-		//.footer.small(v-if='!(isComposed || isAdjusting)') 
-		//	span.info-part(:title='t("bytes-number")',data-toggle='tooltip') B:
-		//		| {{lbytes}}
 		a(v-shortkey='state.shortkeys.nextLayer',@shortkey='layerNext')
 		a(v-shortkey='state.shortkeys.prevLayer',@shortkey='layerPrev')
 
@@ -124,11 +122,17 @@ export default class LayerAndEditable extends Vue {
 	fixFilters(){
 		this.scene.lower.fixFilters();
 	}
+	change(){
+		this.state.change();
+	}
 }
 </script>
 
 <style lang="sass" scoped>
 @import '../../styles/_variables.scss';
+.card{
+	flex-grow:1;
+}
 a{
 	cursor:pointer;
 }

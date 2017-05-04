@@ -62,6 +62,10 @@ module.exports = {
 			template: '!!pug-loader!./src/app/mltbrowser.pug',
 			filename: 'mltbrowser.html'
 		}),
+		new HtmlWebpackPlugin({
+			template: '!!pug-loader!./src/app/config.pug',
+			filename: 'config.html'
+		}),
 		new webpack.ProvidePlugin({
 			$: "jquery",
 			jQuery: "jquery",

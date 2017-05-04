@@ -11,8 +11,9 @@ import MltBrowser from './components/MltBrowser.vue';
 import MltView from './components/MltView.vue';
 import TreeView from './components/TreeView.vue';
 import FilterSelect from './components/FilterSelect.vue';
+import Config from './components/Config.vue';
+import FilterEditor from './components/FilterEditor.vue';
 import Tab from './tab.ts';
-const kuroshiro:any=require('kuroshiro');
 
 let en_US = require('json-loader!../../resource/lang/en_US.json');
 let ja_JP = require('json-loader!../../resource/lang/ja_JP.json');
@@ -43,6 +44,9 @@ Vue.component('mlt-browser',MltBrowser);
 Vue.component('mlt-view',MltView);
 Vue.component('tree-view',TreeView);
 
+Vue.component('config',Config);
+Vue.component('filter-editor',FilterEditor);
+
 Vue.component('filter-select',FilterSelect);
 
 let vm:Vue;
@@ -70,5 +74,10 @@ if($('#app').length){
 	vm = new Vue({
 		el: '#mlt-browser',
 		render:(h)=>h(MltBrowser)
+	});
+} else if($('#config').length){
+	vm = new Vue({
+		el: '#config',
+		render:(h)=>h(Config)
 	});
 }

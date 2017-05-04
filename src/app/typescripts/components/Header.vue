@@ -14,6 +14,8 @@
 			.btn-group
 				button.btn.btn-sm.align-middle(@click='startMltBrowser',:title='t("mlt-browser")',data-toggle='tooltip',v-shortkey='shortkeys.startMltBrowser',@shortkey='startMltBrowser')
 					i.fa.fa-film
+				button.btn.btn-sm.align-middle(@click='startConfigWindow',:title='t("config-window")',data-toggle='tooltip',v-shortkey='shortkeys.startConfigWindow',@shortkey='startConfigWindow')
+					i.fa.fa-gear
 			.btn-group
 				button.btn.btn-sm.align-middle(@click='toggleHighlight',:title='t("highlight-toggle")',data-toggle='tooltip',v-shortkey='shortkeys.toggleHighlight',@shortkey='toggleHighlight')
 					i.fa.fa-paint-brush(:class='{ "text-muted":!state.isHighlight }')
@@ -33,7 +35,6 @@ import * as settings from 'electron-settings';
 
 import Util from '../util';
 import Dialogs from '../dialog';
-import ConfigManager from '../config'
 
 @Component({
 	props:{
@@ -45,6 +46,9 @@ export default class Header extends Vue {
 	state:any;
 	startMltBrowser(){
 		ipcRenderer.send('RequestCreateWindow','mltbrowser');
+	}
+	startConfigWindow(){
+		ipcRenderer.send('RequestCreateWindow','config');
 	}
 	openFile(){
 		this.state.openFile();

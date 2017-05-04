@@ -24,6 +24,16 @@ class MltBrowserWindowFactory extends WindowFactory{
 	public isClosed:boolean=true;
 }
 
+class ConfigWindowFactory extends WindowFactory{
+	public name:string='config';
+	public filePath:string='dist/config.html';
+	public argForBW:any={ width: 800, height: 600 };
+	public isDebug:boolean=true;
+	public isMain:boolean=false;
+	public isSingle:boolean=true;
+	public isClosed:boolean=true;
+}
+
 export default class WindowManager{
 	private windows:Map<number,Electron.BrowserWindow>;
 	private ipc:Electron.IpcMain;
@@ -42,6 +52,7 @@ export default class WindowManager{
 
 		this.windowFactories.set('index',new MainWindowFactory());
 		this.windowFactories.set('mltbrowser',new MltBrowserWindowFactory());
+		this.windowFactories.set('config',new ConfigWindowFactory());
 	}
 	public createWindow(w:Electron.BrowserWindow,wf:WindowFactory){
 		let id:number=w.id;

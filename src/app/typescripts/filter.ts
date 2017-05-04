@@ -1,4 +1,5 @@
 import Util from './util';
+import * as ts from 'typescript';
 import {t} from 'i18next';
 export class AAFilter{
 	filter(str:string):string{

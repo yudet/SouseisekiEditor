@@ -3,6 +3,7 @@
 	saveFile:["ctrl","s"],
 	exportFile:["ctrl","e"],
 	startMltBrowser:["ctrl","h"],
+	startConfigWindow:["ctrl","alt","s"],
 
 	addTab:["ctrl","t"],
 	closeTab:["shift","ctrl","t"],

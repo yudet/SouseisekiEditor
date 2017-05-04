@@ -1,9 +1,9 @@
 
 <template lang="pug">
 div.aa-editable
-	.back.aa(v-html='html',:style='{top:-top+"px",left:-left+"px"}',v-if='state.isHighlight')
-	textarea.aa.main(@input='changed',@scroll='scroll',v-model='text',v-if='editable')
-	textarea.aa.main(@input='changed',@scroll='scroll',v-model='composed',readonly='true',v-if='!editable')
+	.back.aa(v-html='html',:style='{top:-top+"px",left:-left+"px"}',v-if='isHighlight')
+	textarea.aa.main(@scroll='scroll',:value='value',@input='updateValue($event.target.value)',v-if='editable')
+	textarea.aa.main(@scroll='scroll',v-model='value',readonly='true',v-if='!editable')
 </template>
 
 <script lang="ts">
@@ -37,39 +37,32 @@ function insertStr(str:string, index:number, insert:string):string {
 @Component({
 	props:{
 		editable:false,
-		state:null
+		value:'',
+		isHighlight:true,
+		hasChangeEvent:false
 	},
 })
 export default class AaEditable extends Vue {
 	state:any;
 	editable:boolean;
-	get scene():Scene{
-		return this.state.scene as Scene;
-	}
-	get layer():Layer{
-		return this.state.layer as Layer;
-	}
-	get composed():string{
-		return this.scene.composed;
-	}
 	top:number=0;
 	left:number=0;
-	changed(e:Event):void{
-	}
-	get text():string{
-		return this.layer.text/* .replace(/\n/g,'<br>') */;
-	}
-	set text(s:string){
-		this.state.change();
-		this.layer.text=s;
+	value:string='';
+	isHighlight:boolean=true;
+	hasChangeEvent:boolean=false;
+	updateValue(value:string){
+		this.value=value
+		console.log(this.isHighlight);
+ 		this.$emit('input', value)
+		if(this.hasChangeEvent){
+ 			this.$emit('changed')
+		}
 	}
 	get html():string{
-		if(!this.state.isHighlight){
+		if(!this.isHighlight){
 			return '';
-		}else if(this.editable){
-			return Util.getHighlight(this.text);
 		}else{
-			return Util.getHighlight(this.composed);
+			return Util.getHighlight(this.value);
 		}
 	}
 	scroll(e:any){
@@ -98,12 +91,12 @@ textarea.aa{
 	padding:0px;
 	background-color:transparent;
 	z-index:5;
-	min-width:100%;
-	min-height:100%;
 	top:0px;
 	left:0px;
 	white-space: pre;
 	resize:none;
+	height:100%;
+	width:100%;
 	&:focus{
 		outline:0;
 		border:none;
@@ -117,7 +110,7 @@ textarea.aa{
 	color:transparent;
 	top:0px;
 	left:0px;
-	height:100%;
-	width:100%
+	min-height:100%;
+	min-width:100%
 }
 </style>

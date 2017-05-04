@@ -9,6 +9,7 @@ import {FileInterpreter,MltFileInterpreter,FileInterpreterFactory} from './file'
 import * as settings from 'electron-settings';
 
 export default class MainState{
+	settings:any;
 	constructor(){
 		//localforage.getItem('highlight').then((highlight:any)=>{
 		//	this.isHighlight=highlight=='true';
@@ -26,7 +27,6 @@ export default class MainState{
 			settings.set('filters', filters);
 		}
 		this.filters=settings.get('filters');
-		console.log(this.filters);
 		for(let id in this.filters.boxes){
 			let b:Filter.BoxAAFilter=new Filter.BoxAAFilter();
 			b.id=id;
