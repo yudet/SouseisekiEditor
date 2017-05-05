@@ -4,10 +4,11 @@
 		.col-3.nav.flex-column
 			li.nav-item
 				a.nav-link(:class='{active: selectedNav==i}',v-for='(nav,i) in navs',href='#',@click='selectedNav=i') {{nav.name}}
-		.col-21
+		.col-21.row-24(:style='{"overflow-y":"scroll"}')
 			.container-fluid(v-if='selectedNav=="config-shortkeys"')
 			.container-fluid.flex-column.align-items-stretch(v-show='selectedNav=="config-filters"')
 				box-filter-config
+				other-filter-config
 </template>
 
 <script lang="ts">

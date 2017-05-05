@@ -14,7 +14,11 @@ import FilterSelect from './components/FilterSelect.vue';
 import Config from './components/Config.vue';
 import FilterEditor from './components/FilterEditor.vue';
 import BoxFilterConfig from './components/config/BoxFilter.vue';
+import OtherFilterConfig from './components/config/OtherFilter.vue';
 import Tab from './tab.ts';
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/mode/javascript/javascript';
+const VueCode=require('vue-code');
 
 let en_US = require('json-loader!../../resource/lang/en_US.json');
 let ja_JP = require('json-loader!../../resource/lang/ja_JP.json');
@@ -48,11 +52,15 @@ Vue.component('tree-view',TreeView);
 Vue.component('config',Config);
 Vue.component('filter-editor',FilterEditor);
 Vue.component('box-filter-config',BoxFilterConfig);
+Vue.component('other-filter-config',OtherFilterConfig);
 
 Vue.component('filter-select',FilterSelect);
 
+Vue.component('vue-code',VueCode);
+
 let vm:Vue;
-Vue.use(require('vue-shortkey'))
+Vue.use(require('vue-shortkey'));
+
 i18next.init({
 	lng: 'ja',
 	resources: {
