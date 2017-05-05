@@ -27,16 +27,41 @@ export class BoxAAFilter extends AAFilter{
 		super();
 	}
 	filter(str:string):string{
-		let strs:string[]=str.split(/\r\n|\r|\n/),result:string[]=new Array();
-		let maxWidth:number=Util.strWidth(str);
-		const nLines:number=Math.floor(maxWidth / Util.strWidth(this.lines.uc) + 1);
-		maxWidth=nLines*Util.strWidth(this.lines.uc);
-		result.push(this.lines.ul+this.lines.uc.repeat(nLines)+this.lines.ur);
-		for(let s of strs){
-			let gap=maxWidth - Util.strWidth(s);
-			result.push(this.lines.ml + s + Util.generateSpace(gap) + this.lines.mr);
+		if(!this.lines.ul&&!this.lines.uc&&!this.lines.ur
+			&&!this.lines.ml&&!this.lines.mr
+			&&!this.lines.bl&&!this.lines.bc&&!this.lines.br){
+			console.log('no');
+			return str;
 		}
-		result.push(this.lines.bl+this.lines.bc.repeat(nLines)+this.lines.br);
+		let strs:string[]=str.split(/\r\n|\r|\n/),result:string[]=new Array();
+		if(this.lines.uc||this.lines.bc){
+			let maxWidth:number=Util.strWidth(str);
+			const nLines:number=Math.floor(maxWidth / Math.max(Util.strWidth(this.lines.uc),Util.strWidth(this.lines.bc)) + 1);
+			maxWidth=Math.max(maxWidth,nLines*Math.max(Util.strWidth(this.lines.uc||''),Util.strWidth(this.lines.bc||'')));
+			console.log(nLines,maxWidth)
+			if(this.lines.uc){
+				result.push(this.lines.ul+this.lines.uc.repeat(nLines)+this.lines.ur);
+			}else{
+				result.push(this.lines.ul+Util.generateSpace(maxWidth)+this.lines.ur);
+			}
+			for(let s of strs){
+				let gap=maxWidth - Util.strWidth(s);
+				result.push(this.lines.ml + s + Util.generateSpace(gap) + this.lines.mr);
+			}
+			if(this.lines.bc){
+				result.push(this.lines.bl+this.lines.bc.repeat(nLines)+this.lines.br);
+			}else{
+				result.push(this.lines.bl+Util.generateSpace(maxWidth)+this.lines.br);
+			}
+		}else{
+			let maxWidth:number=Util.strWidth(str);
+			result.push(this.lines.ul+Util.generateSpace(maxWidth)+this.lines.ur);
+			for(let s of strs){
+				let gap=maxWidth - Util.strWidth(s);
+				result.push(this.lines.ml + s + Util.generateSpace(gap) + this.lines.mr);
+			}
+			result.push(this.lines.bl+Util.generateSpace(maxWidth)+this.lines.br);
+		}
 		return result.join('\n');
 	}
 }

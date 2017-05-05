@@ -52,7 +52,6 @@ export default class AaEditable extends Vue {
 	hasChangeEvent:boolean=false;
 	updateValue(value:string){
 		this.value=value
-		console.log(this.isHighlight);
  		this.$emit('input', value)
 		if(this.hasChangeEvent){
  			this.$emit('changed')

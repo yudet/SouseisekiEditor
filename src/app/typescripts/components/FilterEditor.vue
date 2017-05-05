@@ -1,17 +1,17 @@
 <template lang="pug">
 form.form-group.p-2
 	.d-flex.flex-row
-		aa-editable.aa.col-1.line(v-model='value.ul',:editable='true')
-		aa-editable.aa.col-1.line(v-model='value.uc',:editable='true')
-		aa-editable.aa.col-1.line(v-model='value.ur',:editable='true')
+		aa-editable.aa.col-1.line(:value='value.ul',@input='onInput($event,"ul")',:editable='true')
+		aa-editable.aa.col-1.line(:value='value.uc',@input='onInput($event,"uc")',:editable='true')
+		aa-editable.aa.col-1.line(:value='value.ur',@input='onInput($event,"ur")',:editable='true')
 	.d-flex.flex-row
-		aa-editable.aa.col-1.line(v-model='value.ml',:editable='true')
+		aa-editable.aa.col-1.line(:value='value.ml',@input='onInput($event,"ml")',:editable='true')
 		.col-1.aa.spacer
-		aa-editable.aa.col-1.line(v-model='value.mr',:editable='true')
+		aa-editable.aa.col-1.line(:value='value.mr',@input='onInput($event,"mr")',:editable='true')
 	.d-flex.flex-row
-		aa-editable.aa.col-1.line(v-model='value.bl',:editable='true')
-		aa-editable.aa.col-1.line(v-model='value.bc',:editable='true')
-		aa-editable.aa.col-1.line(v-model='value.br',:editable='true')
+		aa-editable.aa.col-1.line(:value='value.bl',@input='onInput($event,"bl")',:editable='true')
+		aa-editable.aa.col-1.line(:value='value.bc',@input='onInput($event,"bc")',:editable='true')
+		aa-editable.aa.col-1.line(:value='value.br',@input='onInput($event,"br")',:editable='true')
 </template>
 
 <script lang="ts">
@@ -29,7 +29,10 @@ export default class FilterEditor extends Vue {
 	value:any;
 	constructor(){
 		super();
-		console.log(this.value.ul);
+	}
+	onInput(e:any,target:string){
+		this.value[target]=e;
+		this.$emit('input',this.value);
 	}
 }
 </script>

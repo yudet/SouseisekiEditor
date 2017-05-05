@@ -59,7 +59,7 @@ export default class Util {
 	}
 
 	public static strWidth (str:string):number {
-		if(str===''){
+		if(!str){
 			return 0;
 		}
 		let e:JQuery = $(`<span id="ruler" class="aa" style="
