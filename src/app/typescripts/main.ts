@@ -13,6 +13,7 @@ import TreeView from './components/TreeView.vue';
 import FilterSelect from './components/FilterSelect.vue';
 import Config from './components/Config.vue';
 import FilterEditor from './components/FilterEditor.vue';
+import BoxFilterConfig from './components/config/BoxFilter.vue';
 import Tab from './tab.ts';
 
 let en_US = require('json-loader!../../resource/lang/en_US.json');
@@ -46,6 +47,7 @@ Vue.component('tree-view',TreeView);
 
 Vue.component('config',Config);
 Vue.component('filter-editor',FilterEditor);
+Vue.component('box-filter-config',BoxFilterConfig);
 
 Vue.component('filter-select',FilterSelect);
 

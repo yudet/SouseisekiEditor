@@ -45,13 +45,12 @@ export default class FilterEditor extends Vue {
 .aa{
 	border-width:1px;
 	border-style:solid;
-	border-color:$gray;
 	margin:1px;
 	&.spacer{
 		border-color:transparent;
 	}
 	&:not(.spacer){
-		border-color:$gray;
+		border-color:rgba(0, 0, 0, 0.15);
 	}
 }
 </style>
