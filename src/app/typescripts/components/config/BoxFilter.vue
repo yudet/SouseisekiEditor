@@ -18,8 +18,8 @@
 		filter-editor(v-model='selectedBoxFilterLines')
 		form.form-group
 			label {{t('tester')}}:
-			aa-editable.aa.w-100.line(:editable='true',v-model='boxFilterTester')
-			aa-editable.aa.w-100.tested(:editable='false',v-model='boxFilterTested')
+			aa-editable.aa.w-100.line(:editable='true',v-model='boxFilterTester',:is-highlight='true')
+			aa-editable.aa.w-100.tested(:editable='false',v-model='boxFilterTested',:is-highlight='true')
 		button.btn.btn-sm.col-3.align-self-end(type='button',@click='saveBoxFilter') {{t('save')}}
 </template>
 

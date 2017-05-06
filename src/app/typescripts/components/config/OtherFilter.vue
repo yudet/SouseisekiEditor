@@ -18,8 +18,8 @@
 		vue-code(v-model='selectedFilterCode',options='codeOptions')
 		form.form-group
 			label {{t('tester')}}:
-			aa-editable.aa.w-100.line(:editable='true',v-model='tester')
-			aa-editable.aa.w-100.tested(:editable='false',v-model='filterTested')
+			aa-editable.aa.w-100.line(:editable='true',v-model='tester',:is-highlight='true')
+			aa-editable.aa.w-100.tested(:editable='false',v-model='filterTested',:is-highlight='true')
 		button.btn.btn-sm.col-3.align-self-end(type='button',@click='saveFilter') {{t('save')}}
 </template>
 
