@@ -31,6 +31,19 @@
 
 		"bytes-number":"バイト数",
 
+		"save":"保存",
+		"delete":"削除",
+		"add":"追加",
+		"tester":"テスター",
+
+		"config-filters":"フィルタ設定",
+		"config-filters-boxes":"枠フィルタ設定",
+		"config-filters-others":"その他フィルタ設定",
+		"filter-name":"名前",
+		"filter-id":"ID",
+
+		"config-shortkeys":"ショートカットキー",
+
 		"vo-editor":"vO-Editor"
 	}
 }
