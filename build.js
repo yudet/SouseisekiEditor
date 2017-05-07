@@ -21,19 +21,13 @@ packager({
 	if(err) {
 		throw new Error(err);
 	}
+	zip();
+});
+
+function zip(){
 	// linux
 	var read = targz().createReadStream('./release/Souseiseki Editor-linux-x64');
 	var writeLinux = fs.createWriteStream('./release/Souseiseki Editor-linux-x64.tar.gz');
 	read.pipe(writeLinux);
 	
-	//windows
-	var archive = archiver('zip', {
-		store: true // Sets the compression method to STORE. 
-	});
-	archive.directory('./release/Souseiseki Editor-win32-x64');
-	var writeWin = fs.createWriteStream('./release/Souseiseki Editor-win32-x64.zip');
-	archive.pipe(writeWin);
-	writeWin.on('close',()=>{
-		archive.finalize();
-	});
-});
+}
