@@ -8,10 +8,6 @@
     npm build
 
 ## ToDo
-- [x] 状態を記憶させる
-- [x] MLT Browser上での見出し検索
-- [ ] 〃ファイル検索
-- [x] フィルタ
 
 ## LICENSE
 npmで導入した奴に関してはsrc/resource/license.jsonに分かりにくく書いてあります
