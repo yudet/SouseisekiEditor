@@ -112,6 +112,8 @@ export default class Config extends Vue {
 		this.$nextTick().then(()=>{
 			this.$forceUpdate();
 		});
+
+		Vue.component('vue-code',require('vue-code'))
 	}
 
 }

@@ -32,6 +32,7 @@ export abstract class WindowFactory {
 		if(!this.isDebug){
 			w.setMenu(null);
 		}
+		w.setTitle('Souseiseki Editor');
 		return w;
 	}
 }

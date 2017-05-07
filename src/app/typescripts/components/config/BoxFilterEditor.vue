@@ -17,15 +17,15 @@ form.form-group.p-2
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import IpcController from '../ipcController.ts';
-import {FileMlt} from '../hukutemp.ts';
-import Util from '../util.ts';
+import IpcController from '../../ipcController.ts';
+import {FileMlt} from '../../hukutemp.ts';
+import Util from '../../util.ts';
 @Component({
 	props:{
 		value:null
 	},
 })
-export default class FilterEditor extends Vue {
+export default class BoxFilterEditor extends Vue {
 	value:any;
 	constructor(){
 		super();
@@ -38,7 +38,7 @@ export default class FilterEditor extends Vue {
 </script>
 
 <style lang="sass" scoped>
-@import '../../styles/_variables.scss';
+@import '../../../styles/_variables.scss';
 .line{
 	height:20px;
 }

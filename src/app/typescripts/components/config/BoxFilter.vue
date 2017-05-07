@@ -15,7 +15,7 @@
 				input.form-control.form-control-sm(ref='boxFilterId',v-model='selectedBoxFilterId')
 			button.btn.btn-sm(type='button',v-if='selectedBoxFilterIndex',@click='deleteBoxFilter') {{t('delete')}}
 			button.btn.btn-sm(type='button',v-if='!selectedBoxFilterIndex',@click='addBoxFilter') {{t('add')}}
-		filter-editor(v-model='selectedBoxFilterLines')
+		box-filter-editor(v-model='selectedBoxFilterLines')
 		form.form-group
 			label {{t('tester')}}:
 			aa-editable.aa.w-100.line(:editable='true',v-model='boxFilterTester',:is-highlight='true')
@@ -31,7 +31,10 @@ import Component from 'vue-class-component';
 import {t} from 'i18next';
 
 import * as Filter from '../../filter';
+import BoxFilterEditor from './BoxFilterEditor.vue';
 import '../../../styles/style.scss';
+
+Vue.component('box-filter-editor',BoxFilterEditor);
 
 interface Nav{
 	name:string;

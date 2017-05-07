@@ -30,7 +30,6 @@ export class BoxAAFilter extends AAFilter{
 		if(!this.lines.ul&&!this.lines.uc&&!this.lines.ur
 			&&!this.lines.ml&&!this.lines.mr
 			&&!this.lines.bl&&!this.lines.bc&&!this.lines.br){
-			console.log('no');
 			return str;
 		}
 		let strs:string[]=str.split(/\r\n|\r|\n/),result:string[]=new Array();
@@ -38,7 +37,6 @@ export class BoxAAFilter extends AAFilter{
 			let maxWidth:number=Util.strWidth(str);
 			const nLines:number=Math.floor(maxWidth / Math.max(Util.strWidth(this.lines.uc),Util.strWidth(this.lines.bc)) + 1);
 			maxWidth=Math.max(maxWidth,nLines*Math.max(Util.strWidth(this.lines.uc||''),Util.strWidth(this.lines.bc||'')));
-			console.log(nLines,maxWidth)
 			if(this.lines.uc){
 				result.push(this.lines.ul+this.lines.uc.repeat(nLines)+this.lines.ur);
 			}else{
