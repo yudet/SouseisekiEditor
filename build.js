@@ -31,6 +31,9 @@ packager({
 		store: true // Sets the compression method to STORE. 
 	});
 	archive.directory('./release/Souseiseki Editor-win32-x64');
-	var writeWin = fs.createWriteStream('./release/Souseiseki Editor-windows-x64.zip');
+	var writeWin = fs.createWriteStream('./release/Souseiseki Editor-win32-x64.zip');
 	archive.pipe(writeWin);
+	writeWin.on('close',()=>{
+		archive.finalize();
+	});
 });
