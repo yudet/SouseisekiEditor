@@ -74,7 +74,7 @@ export default class MltView extends Vue {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
 .aas-view{
 	overflow:auto;
 }

@@ -110,7 +110,7 @@ export default class TabsAndPage extends Vue {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
 @import '../../styles/_variables.scss';
 div.page-and-tabgroup{
 	flex-grow:1;

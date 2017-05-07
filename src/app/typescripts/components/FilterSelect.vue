@@ -58,7 +58,7 @@ export default class FilterSelect extends Vue {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
 @import '../../styles/_variables.scss';
 a{
 	cursor:pointer;

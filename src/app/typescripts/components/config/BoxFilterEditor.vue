@@ -37,7 +37,7 @@ export default class BoxFilterEditor extends Vue {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
 @import '../../../styles/_variables.scss';
 .line{
 	height:20px;

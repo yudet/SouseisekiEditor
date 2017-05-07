@@ -72,7 +72,7 @@ export default class Header extends Vue {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
 @import '../../styles/_variables.scss';
 .btn-group{
 	background-color:transparent;

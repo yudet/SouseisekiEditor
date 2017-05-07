@@ -39,7 +39,7 @@ export default class TreeView extends Vue {
 
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
 
 .tree-view{
 	font-size:10px;
