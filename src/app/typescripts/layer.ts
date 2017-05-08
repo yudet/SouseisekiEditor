@@ -90,6 +90,7 @@ export default class Layer{
 			}
 			//文字列前のスペースをxに足した
 			for (let j:number=0;j< frontArr[i].length;j++) {
+				// console.log(spSize);
 				if (Util.isSpace(frontArr[i].charAt(j))) {
 					spSize++;
 				} else {
@@ -97,8 +98,10 @@ export default class Layer{
 				}
 			}
 
-			x += Util.strWidth(frontArr[i].substr(0,spSize-1));
-			frontArr[i] = frontArr[i].substr(spSize);
+			frontArr[i] = frontArr[i].replace(/^[\u0020\u00a0\u200a\u2009\u2006\u2005\u2002\u2007\u3000]+/g,(match)=>{	
+				x += Util.strWidth(match);
+				return '';
+			});
 
 			//w:前の文字列自体の大きさ
 			let w:number = Util.strWidth(frontArr[i]),
@@ -108,6 +111,7 @@ export default class Layer{
 				sp1:string = '',
 				sp2:string = '';
 			endw = Util.strWidth(backArr[i]);
+			// console.log(frontArr,backArr,x,endw,w)
 
 			//下が上のoffset内に完全に入る時
 			if (endw <= x) {
@@ -120,12 +124,14 @@ export default class Layer{
 			else if (endw <= x + w) {
 				while (startw < x) {
 					startw = Util.strWidth(backArr[i].slice(0, c));
-					//	console.log(c, startw);
+						// console.log(c, startw);
 					c++;
 				}
+				// console.log(x);
 				startStr = (backArr[i].slice(0, c - 2));
 				sp1 = Util.generateSpace(x - Util.strWidth(startStr));
 				backArr[i] = startStr + sp1 /*ここまでx*/ + frontArr[i];
+				// console.log('startStr',startStr,'sp1',sp1,'frontArr',frontArr[i]);
 			} 
 			else{
 				//文字列前
@@ -167,7 +173,7 @@ export default class Layer{
 				endStr = backArr[i].slice(endc);
 				sp2 = Util.generateSpace(endp);
 				backArr[i] = startStr + sp1 + frontArr[i] + sp2 + endStr;
-				//console.log('startStr',startStr,'sp1',sp1,'frontArr',frontArr[i],'sp2',sp2,'endStr',endStr);
+				// console.log('startStr',startStr,'sp1',sp1,'frontArr',frontArr[i],'sp2',sp2,'endStr',endStr);
 			}
 
 			c = 0;
