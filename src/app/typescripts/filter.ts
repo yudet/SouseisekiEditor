@@ -34,17 +34,23 @@ export class BoxAAFilter extends AAFilter{
 		}
 		let strs:string[]=str.split(/\r\n|\r|\n/),result:string[]=new Array();
 		if(this.lines.uc||this.lines.bc){
-			let maxWidth:number=Util.strWidth(str);
+			let maxWidth:number=0;
+			for(let s of strs){
+				if(s){
+					maxWidth=Math.max(maxWidth,Util.strWidth(s))
+				}
+			}
 			const nLines:number=Math.floor(maxWidth / Math.max(Util.strWidth(this.lines.uc),Util.strWidth(this.lines.bc)) + 1);
 			maxWidth=Math.max(maxWidth,nLines*Math.max(Util.strWidth(this.lines.uc||''),Util.strWidth(this.lines.bc||'')));
+			const ml=this.lines.ml!=='' ? this.lines.ml : Util.generateSpace(Util.strWidth(this.lines.ul));
 			if(this.lines.uc){
 				result.push(this.lines.ul+this.lines.uc.repeat(nLines)+this.lines.ur);
 			}else{
 				result.push(this.lines.ul+Util.generateSpace(maxWidth)+this.lines.ur);
 			}
 			for(let s of strs){
-				let gap=maxWidth - Util.strWidth(s);
-				result.push(this.lines.ml + s + Util.generateSpace(gap) + this.lines.mr);
+				const gap:number=!this.lines.ml?0:maxWidth - Util.strWidth(s);
+				result.push(ml + s + Util.generateSpace(gap) + this.lines.mr);
 			}
 			if(this.lines.bc){
 				result.push(this.lines.bl+this.lines.bc.repeat(nLines)+this.lines.br);
@@ -81,6 +87,7 @@ export class OtherAAFilter extends AAFilter{
 	}
 }
 
-export const filters:AAFilter[]=[
+export let filters:AAFilter[]=[
 ];
+
 

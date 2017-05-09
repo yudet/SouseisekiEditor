@@ -36,6 +36,14 @@
 				"bl":"└","bc":"","br":"┘"
 			},
 			"name":"BracketBox"
+		},
+		"v-bracket-box":{
+			"lines":{
+				"ul":"┌","uc":"─","ur":"┐",
+				"ml":"","mr":"",
+				"bl":"└","bc":"─","br":"┘"
+			},
+			"name":"VerticalBracketBox"
 		}
 	},
 	"others":{

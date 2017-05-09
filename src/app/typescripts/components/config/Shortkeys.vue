@@ -19,6 +19,7 @@ import Component from 'vue-class-component';
 import {t} from 'i18next';
 
 import * as Filter from '../../filter';
+import IpcController from '../../ipcController';
 import '../../../styles/style.scss';
 
 @Component({
@@ -37,8 +38,8 @@ export default class Shortkeys extends Vue {
 		});
 	}
 	save(){
-		console.log(this.shortkeys);
 		settings.set('shortkeys', this.shortkeys);
+		IpcController.loadSettings();
 	}
 }
 

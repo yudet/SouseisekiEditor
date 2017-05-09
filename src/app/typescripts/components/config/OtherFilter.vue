@@ -28,6 +28,7 @@ import Vue from 'vue';
 import * as localforage from 'localforage';
 import * as settings from 'electron-settings';
 import Component from 'vue-class-component';
+import IpcController from '../../ipcController';
 import {t} from 'i18next';
 
 import * as Filter from '../../filter';
@@ -54,6 +55,7 @@ export default class Config extends Vue {
 	}
 	saveFilter(){
 		settings.set('filters', this.filters);
+		IpcController.loadSettings();
 	}
 	get selectedFilterName():string{
 		if(this.filters.others[this.selectedFilterIndex]){

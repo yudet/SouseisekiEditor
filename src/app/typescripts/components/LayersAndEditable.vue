@@ -125,6 +125,12 @@ export default class LayerAndEditable extends Vue {
 	change(){
 		this.state.change();
 	}
+	constructor(){
+		super();
+		this.state.loadSettingsCallbacks.push(()=>{
+			this.$forceUpdate();
+		});
+	}
 }
 </script>
 

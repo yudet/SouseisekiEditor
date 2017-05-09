@@ -95,7 +95,7 @@ export default class TabsAndPage extends Vue {
 	constructor(){
 		super();
 
-		IpcController.receiveAA((ev:Electron.IpcRendererEvent,a:any)=>{
+		IpcController.receive((ev:Electron.IpcRendererEvent,a:any)=>{
 			let s=JSON.parse(a);
 			if(s.name=='SendAA'){
 				this.tg.lower.lower.add(new Layer({text:s.contents}),this.tg.lower.lower.index+1);

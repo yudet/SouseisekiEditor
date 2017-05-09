@@ -33,6 +33,7 @@ import {t} from 'i18next';
 import * as Filter from '../../filter';
 import BoxFilterEditor from './BoxFilterEditor.vue';
 import '../../../styles/style.scss';
+import IpcController from '../../ipcController';
 
 Vue.component('box-filter-editor',BoxFilterEditor);
 
@@ -57,6 +58,7 @@ export default class Config extends Vue {
 	}
 	saveBoxFilter(){
 		settings.set('filters', this.filters);
+		IpcController.loadSettings();
 	}
 	get selectedBoxFilterName():string{
 		if(this.filters.boxes[this.selectedBoxFilterIndex]){
