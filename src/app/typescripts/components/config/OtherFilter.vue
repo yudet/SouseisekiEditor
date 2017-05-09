@@ -104,7 +104,7 @@ export default class Config extends Vue {
 	filters:any;
 	constructor(){
 		super();
-		let filters:any=require('../../../../resource/filters.json5');
+		let filters:any=require('../../../../resource/filters.json');
 		if(!settings.has('filters')){
 			settings.set('filters', filters);
 		}

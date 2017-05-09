@@ -15,14 +15,14 @@ export default class MainState{
 		//	this.isHighlight=highlight=='true';
 		//});
 		//this.tg.load();
-		let shortkeys:any=require('../../resource/shortkeys.json5');
+		let shortkeys:any=require('../../resource/shortkeys.json');
 
 		if(!settings.has('shortkeys')){
 			settings.set('shortkeys', shortkeys);
 		}
 		this.shortkeys=settings.get('shortkeys');
 
-		let filters:any=require('../../resource/filters.json5');
+		let filters:any=require('../../resource/filters.json');
 		if(!settings.has('filters')){
 			settings.set('filters', filters);
 		}

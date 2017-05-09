@@ -27,7 +27,7 @@ export default class Shortkeys extends Vue {
 	shortkeys:any;
 	constructor(){
 		super();
-		let shortkeys:any=require('../../../../resource/filters.json5');
+		let shortkeys:any=require('../../../../resource/filters.json');
 		if(!settings.has('shortkeys')){
 			settings.set('shortkeys', shortkeys);
 		}

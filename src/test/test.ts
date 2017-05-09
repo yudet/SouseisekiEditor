@@ -39,6 +39,14 @@ describe('filter',()=>{
 		const filter:BoxAAFilter=new BoxAAFilter();
 		chai.expect(filter.filter('あ')).to.eql('┌─┐\n│あ │\n└─┘');
 	});
+	it('kakko',()=>{
+		const filter:BoxAAFilter=new BoxAAFilter();
+		filter.lines=require('../../src/resource/filters.json').boxes['bracket-box'].lines;
+		const s=filter.filter('ああああ\nかかか').split('\n');
+		chai.expect(s[0]).to.eql('┌　　　　　 ┐');
+		chai.expect(s[1]).to.eql('│ああああ│');
+		chai.expect(s[3]).to.eql('└　　　　　 ┘');
+	});
 });
 describe('util',()=>{
 	it('generate-space',()=>{

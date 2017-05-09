@@ -52,7 +52,12 @@ export class BoxAAFilter extends AAFilter{
 				result.push(this.lines.bl+Util.generateSpace(maxWidth)+this.lines.br);
 			}
 		}else{
-			let maxWidth:number=Util.strWidth(str);
+			let maxWidth:number=0;
+			for(let s of strs){
+				if(s){
+					maxWidth=Math.max(maxWidth,Util.strWidth(s))
+				}
+			}
 			result.push(this.lines.ul+Util.generateSpace(maxWidth)+this.lines.ur);
 			for(let s of strs){
 				let gap=maxWidth - Util.strWidth(s);

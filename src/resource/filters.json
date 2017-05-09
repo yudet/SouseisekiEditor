@@ -11,7 +11,7 @@
 					"bc":"─",
 					"br":"┘"
 			},
-			"name":"SimpleFrame"
+			"name":"SimpleBox"
 		},
 		"bold-box":{
 			"lines":{
@@ -19,7 +19,7 @@
 				"ml":"┃","mr":"┃",
 				"bl":"┗","bc":"━","br":"┛"
 			},
-			"name":"BoldFrame"
+			"name":"BoldBox"
 		},
 		"corner-bold-box":{
 			"lines":{
@@ -27,7 +27,15 @@
 				"ml":"│","mr":"│",
 				"bl":"┗","bc":"─","br":"┛"
 			},
-			"name":"CornerBoldFrame"
+			"name":"CornerBoldBox"
+		},
+		"bracket-box":{
+			"lines":{
+				"ul":"┌","uc":"","ur":"┐",
+				"ml":"│","mr":"│",
+				"bl":"└","bc":"","br":"┘"
+			},
+			"name":"BracketBox"
 		}
 	},
 	"others":{
