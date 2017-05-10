@@ -1,4 +1,5 @@
 import * as Vue from 'vue';
+import * as localforage from 'localforage';
 
 export default class Base {
 	name: string;
@@ -63,16 +64,43 @@ export default class Base {
 		}
 	}
 
+
 	close(index: number):void{
-		if(this.lowers.length===1){
+		localforage.getItem(this.isCloseLocalforageId).then((neverShow)=>{
+			let f:boolean=true;
+			if(!neverShow){
+				let ans=this.closeMessaging();
+				switch(ans){
+					case 0:
+						f=true;
+						break;
+					case 1:
+						f=false;
+						break;
+					case 2:
+						localforage.setItem(this.isCloseLocalforageId,true);
+						break;
+					default:
+						f=false;
+				}
+			}
+			if(f){
+				if(this.lowers.length===1){
+					return ;
+				}
+				if(this.index!=0){
+					this.index=0;
+				}else{
+					this.index=1;
+				}
+				this.lowers.splice(index,1);
+			}
 			return ;
-		}
-		if(this.index!=0){
-			this.index=0;
-		}else{
-			this.index=1;
-		}
-		this.lowers.splice(index,1);
-		return ;
+		});
+	}
+
+	isCloseLocalforageId:string='';
+	closeMessaging():number{
+		return 0;
 	}
 }

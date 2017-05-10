@@ -26,7 +26,6 @@ export default class MainState{
 			}
 		});
 	}
-	loadSettingsCallbacks:Array<Function>=new Array();
 	loadSettings(){
 		let shortkeys:any=require('../../resource/shortkeys.json');
 
@@ -52,9 +51,6 @@ export default class MainState{
 			b.id=id;
 			b.name=this.filters.others[id].name;
 			Filter.filters.push(b);
-		}
-		for(let callback of this.loadSettingsCallbacks){
-			callback();
 		}
 	}
 	createTabFromFile(isOpen:boolean){

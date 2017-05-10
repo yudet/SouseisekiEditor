@@ -1,6 +1,7 @@
 import Base from './base';
 import Layer from './layer';
 import Util from './util';
+import Dialogs from './dialog';
 
 export default class Scene extends Base {
 	lowers: Array<Layer>;
@@ -36,5 +37,10 @@ export default class Scene extends Base {
 
 	set text(s:string){
 		this.lower.text=s;
+	}
+
+	isCloseLocalforageId:string='never-ask-close-layer';
+	closeMessaging():number{
+		return Dialogs.messageCloseLayer();
 	}
 }

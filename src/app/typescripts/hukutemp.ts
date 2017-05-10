@@ -44,7 +44,7 @@ export class YaruyomiSupplier extends AASupplier{
 					for(let i=0;i<a.length;i++){
 						a[i]=this.loadYaruyomi(a[i]);
 					}
-					return localforage.getItem(this.id)
+					return localforage.getItem('mlt-'+this.id)
 				}).then((item:any)=>{
 					setIsOpen(a,item);
 					this.aaList=a;

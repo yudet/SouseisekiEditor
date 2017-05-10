@@ -47,5 +47,22 @@ export default class Dialogs{
 			]
 		});
 	}
+	static messageClose(message:string):number{
+		return Dialog.showMessageBox(null, {
+			title:t('warning'),
+			message:message,
+			buttons:[t('yes'),t('cancel'),t('dialog-never')],
+			type:'warning'
+		});
+	}
+	static messageCloseTab():number{
+		return Dialogs.messageClose(t('tab-close-message'));
+	}
+	static messageCloseScene():number{
+		return Dialogs.messageClose(t('scene-close-message'));
+	}
+	static messageCloseLayer():number{
+		return Dialogs.messageClose(t('layer-close-message'));
+	}
 }
 

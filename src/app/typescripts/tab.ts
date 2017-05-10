@@ -1,7 +1,7 @@
 import Base from './base';
 import Scene from './scene'
 import {t} from 'i18next';
-import * as hash from 'object-hash';
+import Dialogs from './dialog';
 
 export default class Tab extends Base{
 	lowers: Array<Scene>;
@@ -33,5 +33,9 @@ export default class Tab extends Base{
 
 	set text(s:string){
 		this.lower.text=s;
+	}
+	isCloseLocalforageId:string='never-ask-close-scene';
+	closeMessaging():number{
+		return Dialogs.messageCloseScene();
 	}
 }

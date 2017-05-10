@@ -84,7 +84,7 @@ export default class MltBrowser extends Vue {
 			}
 			return r;
 		}
-		localforage.setItem(this.ys.id,chooseIsOpen(this.aaList));
+		localforage.setItem('mlt-'+this.ys.id,chooseIsOpen(this.aaList));
 	}
 	searchWithHierarchy(){
 		if(this.searchStr==null){

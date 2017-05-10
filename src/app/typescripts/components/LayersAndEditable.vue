@@ -39,7 +39,7 @@ div.layers-and-editable.d-flex.flex-row.align-items-stretch
 				input.form-control.form-control-sm(v-model='scene.lower.offset.x',type='number',@focus='adjusting',@blur='normal')
 				label.small {{t('offset-y')}}:
 				input.form-control.form-control-sm(v-model='scene.lower.offset.y',type='number',@focus='adjusting',@blur='normal')
-				filter-select(:layer='scene.lower')
+				filter-select(:layer='scene.lower',@changed='change',)
 
 </template>
 
@@ -96,9 +96,11 @@ export default class LayerAndEditable extends Vue {
 	}
 	layerDown(){
 		this.scene.down();
+		this.change();
 	}
 	layerUp(){
 		this.scene.up();
+		this.change();
 	}
 	layerNext(){
 		if(this.scene.index==this.scene.lowers.length-1){
@@ -127,9 +129,6 @@ export default class LayerAndEditable extends Vue {
 	}
 	constructor(){
 		super();
-		this.state.loadSettingsCallbacks.push(()=>{
-			this.$forceUpdate();
-		});
 	}
 }
 </script>

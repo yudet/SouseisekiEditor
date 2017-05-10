@@ -42,17 +42,21 @@ export default class FilterSelect extends Vue {
 	}
 	set selectedFilter(s:string){
 		this.layer.addFilter(s);
+ 		this.$emit('changed')
 	}
 	remove(index:number){
 		this.layer.removeFilter(index);
+ 		this.$emit('changed')
 		this.$forceUpdate()
 	}
 	up(index:number){
 		this.layer.upFilter(index);
+ 		this.$emit('changed')
 		this.$forceUpdate()
 	}
 	down(index:number){
 		this.layer.downFilter(index);
+ 		this.$emit('changed')
 		this.$forceUpdate();
 	}
 }

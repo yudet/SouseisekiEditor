@@ -1,6 +1,7 @@
 import * as localforage from 'localforage';
 import Base from './base';
 import Tab from './tab';
+import Dialogs from './dialog';
 import {FileInterpreterFactory} from './file';
 
 export default class TabsGroup extends Base{
@@ -66,5 +67,9 @@ export default class TabsGroup extends Base{
 				resolve(lowers);
 			})
 		});
+	}
+	isCloseLocalforageId:string='never-ask-close-tab';
+	closeMessaging():number{
+		return Dialogs.messageCloseTab();
 	}
 }
