@@ -42,6 +42,13 @@
 		"filter-name":"名前",
 		"filter-id":"ID",
 
+		"tab-close-message":"タブを閉じます。元に戻せませんがよろしいですか？",
+		"scene-close-message":"シーンを閉じます。元に戻せませんがよろしいですか？",
+		"layer-close-message":"レイヤーを閉じます。元に戻せませんがよろしいですか？",
+		"ok":"OK",
+		"cancel":"キャンセル",
+		"dialog-never":"OK(この警告を切る)",
+
 		"config-shortkeys":"ショートカットキー",
 
 		"vo-editor":"vO-Editor"

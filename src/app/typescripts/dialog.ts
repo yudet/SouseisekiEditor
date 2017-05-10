@@ -51,7 +51,7 @@ export default class Dialogs{
 		return Dialog.showMessageBox(null, {
 			title:t('warning'),
 			message:message,
-			buttons:[t('yes'),t('cancel'),t('dialog-never')],
+			buttons:[t('ok'),t('cancel'),t('dialog-never')],
 			type:'warning'
 		});
 	}
