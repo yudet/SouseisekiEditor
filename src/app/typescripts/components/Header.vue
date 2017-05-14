@@ -19,7 +19,11 @@
 			.btn-group
 				button.btn.btn-sm.align-middle(@click='toggleHighlight',:title='t("highlight-toggle")',data-toggle='tooltip',v-shortkey='shortkeys.toggleHighlight',@shortkey='toggleHighlight')
 					i.fa.fa-paint-brush(:class='{ "text-muted":!state.isHighlight }')
-
+			.btn-group
+				button.btn.btn-sm.align-middle(@click='sceneLeft',:title='t("scene-left")',data-toggle='tooltip',v-shortkey='shortkeys.sceneLeft',@shortkey='sceneLeft')
+					i.fa.fa-arrow-left
+				button.btn.btn-sm.align-middle(@click='sceneRight',:title='t("scene-right")',data-toggle='tooltip',v-shortkey='shortkeys.sceneRight',@shortkey='sceneRight')
+					i.fa.fa-arrow-right
 </template>
 
 <script lang="ts">
@@ -68,6 +72,12 @@ export default class Header extends Vue {
 	}
 	get shortkeys():any{
 		return this.state.shortkeys;
+	}
+	sceneLeft(){
+		this.state.tab.up();
+	}
+	sceneRight(){
+		this.state.tab.down();
 	}
 }
 </script>

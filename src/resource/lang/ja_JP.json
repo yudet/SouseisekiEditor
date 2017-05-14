@@ -26,7 +26,6 @@
 		"filter-bold-box":"太線ボックス",
 		"filter-corner-bold-box":"隅太線ボックス",
 
-
 		"scene-result":"結果",
 
 		"bytes-number":"バイト数",
@@ -48,6 +47,9 @@
 		"ok":"OK",
 		"cancel":"キャンセル",
 		"dialog-never":"OK(この警告を切る)",
+
+		"scene-left":"シーンを左に移動",
+		"scene-right":"シーンを右に移動",
 
 		"config-shortkeys":"ショートカットキー",
 
